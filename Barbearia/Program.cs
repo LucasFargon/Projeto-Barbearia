@@ -68,26 +68,51 @@ class Program
         string idBarbeiro = Console.ReadLine();
         Barbeiro barbeiroEscolhido = barbeiros.Find(b => b.Id == idBarbeiro);
 
-        Console.WriteLine("Escolha o tipo de corte de cabelo:");
-        foreach (var cabelo in cortesCabelo)
-        {
-            Console.WriteLine($"{cortesCabelo.IndexOf(cabelo)}) {cabelo.Nome} - R${cabelo.Preco}");
-        }
-        Cabelo cabeloEscolhido = cortesCabelo[int.Parse(Console.ReadLine())];
+        Cabelo cabeloEscolhido = null;
+        Barba barbaEscolhida = null;
+        Outros outroEscolhido = null;
 
-        Console.WriteLine("Escolha o tipo de barba:");
-        foreach (var barba in cortesBarba)
-        {
-            Console.WriteLine($"{cortesBarba.IndexOf(barba)}) {barba.Nome} - R${barba.Preco}");
-        }
-        Barba barbaEscolhida = cortesBarba[int.Parse(Console.ReadLine())];
+        Console.WriteLine();
+        Console.WriteLine("Gostaria de fazer um corte de cabelo? (sim ou não)");
+        string cortarCabelo = Console.ReadLine();
 
-        Console.WriteLine("Escolha um pedido adicional:");
-        foreach (var outro in outrosTipos)
+        if (cortarCabelo.ToLower() == "sim" || cortarCabelo.ToLower() == "s")
         {
-            Console.WriteLine($"{outrosTipos.IndexOf(outro)}) {outro.Nome} - R${outro.Preco}");
+            Console.WriteLine("Escolha o tipo de corte de cabelo:");
+            foreach (var cabelo in cortesCabelo)
+            {
+                Console.WriteLine($"{cortesCabelo.IndexOf(cabelo)}) {cabelo.Nome} - R${cabelo.Preco}");
+            }
+                cabeloEscolhido = cortesCabelo[int.Parse(Console.ReadLine())];
         }
-        Outros outroEscolhido = outrosTipos[int.Parse(Console.ReadLine())];
+
+        Console.WriteLine();
+        Console.WriteLine("Gostaria de fazer a barba? (sim ou não)");
+        string cortarBarba = Console.ReadLine();
+
+        if (cortarBarba.ToLower() == "sim" || cortarBarba.ToLower() == "s")
+        {
+            Console.WriteLine("Escolha o tipo de barba:");
+            foreach (var barba in cortesBarba)
+            {
+                Console.WriteLine($"{cortesBarba.IndexOf(barba)}) {barba.Nome} - R${barba.Preco}");
+            }
+            barbaEscolhida = cortesBarba[int.Parse(Console.ReadLine())];
+        }
+
+        Console.WriteLine();
+        Console.WriteLine("Gostaria de fazer um pedido adicional? (sim ou não)");
+        string pedidoAdicional = Console.ReadLine();
+
+        if (pedidoAdicional.ToLower() == "sim" || pedidoAdicional.ToLower() == "s")
+        {
+           Console.WriteLine("Escolha um pedido adicional:");
+           foreach (var outro in outrosTipos)
+           {
+               Console.WriteLine($"{outrosTipos.IndexOf(outro)}) {outro.Nome} - R${outro.Preco}");
+           }
+           outroEscolhido = outrosTipos[int.Parse(Console.ReadLine())];
+        }
 
         Console.WriteLine("Escolha a data e a hora do agendamento no formato: dd/MM/yyyy HH:mm");
         DateTime dataHora = DateTime.Parse(Console.ReadLine());

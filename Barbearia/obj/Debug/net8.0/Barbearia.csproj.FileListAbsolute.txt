@@ -12,3 +12,4 @@ C:\Users\Compaq\Desktop\Projeto Barbearia\Barbearia\obj\Debug\net8.0\refint\Barb
 C:\Users\Compaq\Desktop\Projeto Barbearia\Barbearia\obj\Debug\net8.0\Barbearia.pdb
 C:\Users\Compaq\Desktop\Projeto Barbearia\Barbearia\obj\Debug\net8.0\Barbearia.genruntimeconfig.cache
 C:\Users\Compaq\Desktop\Projeto Barbearia\Barbearia\obj\Debug\net8.0\ref\Barbearia.dll
+C:\Users\Compaq\Desktop\Projeto Barbearia\Barbearia\obj\Debug\net8.0\Barbearia.sourcelink.json
