@@ -1,0 +1,14 @@
+C:\Users\Compaq\Desktop\Projeto Barbearia\Barbearia\bin\Debug\net8.0\Barbearia.exe
+C:\Users\Compaq\Desktop\Projeto Barbearia\Barbearia\bin\Debug\net8.0\Barbearia.deps.json
+C:\Users\Compaq\Desktop\Projeto Barbearia\Barbearia\bin\Debug\net8.0\Barbearia.runtimeconfig.json
+C:\Users\Compaq\Desktop\Projeto Barbearia\Barbearia\bin\Debug\net8.0\Barbearia.dll
+C:\Users\Compaq\Desktop\Projeto Barbearia\Barbearia\bin\Debug\net8.0\Barbearia.pdb
+C:\Users\Compaq\Desktop\Projeto Barbearia\Barbearia\obj\Debug\net8.0\Barbearia.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Compaq\Desktop\Projeto Barbearia\Barbearia\obj\Debug\net8.0\Barbearia.AssemblyInfoInputs.cache
+C:\Users\Compaq\Desktop\Projeto Barbearia\Barbearia\obj\Debug\net8.0\Barbearia.AssemblyInfo.cs
+C:\Users\Compaq\Desktop\Projeto Barbearia\Barbearia\obj\Debug\net8.0\Barbearia.csproj.CoreCompileInputs.cache
+C:\Users\Compaq\Desktop\Projeto Barbearia\Barbearia\obj\Debug\net8.0\Barbearia.dll
+C:\Users\Compaq\Desktop\Projeto Barbearia\Barbearia\obj\Debug\net8.0\refint\Barbearia.dll
+C:\Users\Compaq\Desktop\Projeto Barbearia\Barbearia\obj\Debug\net8.0\Barbearia.pdb
+C:\Users\Compaq\Desktop\Projeto Barbearia\Barbearia\obj\Debug\net8.0\Barbearia.genruntimeconfig.cache
+C:\Users\Compaq\Desktop\Projeto Barbearia\Barbearia\obj\Debug\net8.0\ref\Barbearia.dll
