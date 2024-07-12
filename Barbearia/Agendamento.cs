@@ -13,7 +13,7 @@ namespace Barbearia
         public DateTime DataHora { get; set; }
         public Cabelo Cabelo { get; set; }
         public Barba Barba { get; set; }
-        public Outros Outros { get; set; }
+        public List<Outros> Outros { get; set; }
         public double PrecoTotal
         {
             get
@@ -21,7 +21,10 @@ namespace Barbearia
                 double total = 0;
                 if (Cabelo != null) total += Cabelo.Preco;
                 if (Barba != null) total += Barba.Preco;
-                if (Outros != null) total += Outros.Preco;
+                if (Outros != null)
+                {
+                    foreach (var outro in Outros) { total += outro.Preco;}
+                }
                 return total;
             }
         }
