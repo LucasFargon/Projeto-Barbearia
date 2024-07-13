@@ -10,6 +10,8 @@ namespace Barbearia
     {
         public string Nome { get; set; }
         public string Cpf { get; set; }
+
+        public string Telefone { get; set; }
         public List<Agendamento> Agendamentos { get; set; } = new List<Agendamento>();
     }
 }
