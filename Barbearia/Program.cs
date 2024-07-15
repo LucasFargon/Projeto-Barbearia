@@ -54,6 +54,7 @@ class Program
         if (int.Parse(idBarbeiro) == barbeiros.Count)
         {
             TelaInicial();
+            return;
         }
 
         Barbeiro barbeiroEscolhido = barbeiros.Find(b => b.Id == idBarbeiro);
@@ -78,6 +79,7 @@ class Program
             if (rCortesCabelo == cortesCabelo.Count)
             {
                 TelaInicial();
+                return;
             }
             cabeloEscolhido = cortesCabelo[rCortesCabelo];
         }
@@ -98,6 +100,7 @@ class Program
             if (rCortesBarba == cortesBarba.Count)
             {
                 TelaInicial();
+                return;
             }
             barbaEscolhida = cortesBarba[rCortesBarba];
         }
@@ -123,6 +126,7 @@ class Program
                 if (resposta == listaAuxiliar.Count)
                 {
                     TelaInicial();
+                    return;
                 }
 
                 Console.WriteLine($"{listaAuxiliar[resposta].Nome} Escolhido");
@@ -140,7 +144,7 @@ class Program
                         i = 3;
                     }
                 }
-            }
+           }
         }
 
         Console.WriteLine("Escolha a data e a hora do agendamento no formato: dd/MM/yyyy HH:mm");
@@ -160,6 +164,7 @@ class Program
         barbeiroEscolhido.Agenda.Add(agendamento);
 
         Console.WriteLine($"O agendamento foi realizado com sucesso! Preço total: R${agendamento.PrecoTotal}");
+        TelaInicial();
     }
 
     public static void VerAgenda()
@@ -174,6 +179,132 @@ class Program
             }
             Console.WriteLine();
         }
+        Console.WriteLine("Pressione qualquer tecla para voltar a tela inicial!");
+        Console.ReadKey();
+        TelaInicial();
+    }
+
+    public static void AlterarAgendamento() 
+    {
+        Console.Clear();
+        Console.WriteLine("Digite o CPF do cliente:");
+        string cpfCliente = Console.ReadLine();
+
+        Cliente cliente = null;
+        Barbeiro barbeiroEscolhido = null;
+        Agendamento agendamentoEscolhido = null;
+
+        foreach (var barbeiro in barbeiros)
+        {
+            foreach (var agendamento in barbeiro.Agenda)
+            {
+                if (agendamento.Cliente.Cpf == cpfCliente)
+                {
+                    cliente = agendamento.Cliente;
+                    barbeiroEscolhido = barbeiro;
+                    agendamentoEscolhido = agendamento;
+                    break;
+                }
+            }
+        }
+        
+        if (cliente == null)
+        {
+            Console.WriteLine("Cliente não foi localizado.");
+            Console.WriteLine("Pressione qualquer tecla para voltar a tela inicial!");
+            Console.ReadKey();
+            TelaInicial();
+            return;
+        }
+
+        Console.WriteLine("O que você gostaria de alterar?");
+        Console.WriteLine("1) Nome " +
+            "2) Telefone " +
+            "3) Barbeiro" +
+            "4) Corte de Cabelo" +
+            "5) Barba" +
+            "6) Pedido Adicional" +
+            "7) Data e Hora");
+
+        int escolha = int.Parse(Console.ReadLine());
+
+        switch (escolha)
+        {
+            case 1:
+                Console.WriteLine("Digite o novo nome:");
+                cliente.Nome = Console.ReadLine();
+                break;
+            case 2:
+                Console.WriteLine("Digite o novo telefone:");
+                cliente.Telefone = Console.ReadLine();
+                break;
+            case 3:
+                Console.WriteLine("Escolha o novo barbeiro:");
+                foreach (var barbeiro in barbeiros)
+                {
+                    Console.WriteLine($"{barbeiro.Id}) {barbeiro.Nome}");
+                }
+                string idBarbeiro = Console.ReadLine();
+
+                barbeiroEscolhido.Agenda.Remove(agendamentoEscolhido);
+                barbeiroEscolhido = barbeiros.Find(b => b.Id == idBarbeiro);
+                agendamentoEscolhido.Barbeiro = barbeiroEscolhido;
+                barbeiroEscolhido.Agenda.Add(agendamentoEscolhido);
+                break;
+            case 4:
+                Console.WriteLine("Escolha o novo corte de cabelo:");
+                foreach (var cabelo in cortesCabelo)
+                {
+                    Console.WriteLine($"{cortesCabelo.IndexOf(cabelo)}) {cabelo.Nome} - R${cabelo.Preco}");
+                }
+                int rCortesCabelo = int.Parse(Console.ReadLine());
+                agendamentoEscolhido.Cabelo = cortesCabelo[rCortesCabelo];
+                break;
+            case 5:
+                Console.WriteLine("Escolha o novo corte de barba:");
+                foreach (var barba in cortesBarba)
+                {
+                    Console.WriteLine($"{cortesBarba.IndexOf(barba)}) {barba.Nome} - R${barba.Preco}");
+                }
+                int rCortesBarba = int.Parse(Console.ReadLine());
+                agendamentoEscolhido.Barba = cortesBarba[rCortesBarba];
+                break;
+            case 6:
+                Console.WriteLine("Escolha o novo pedido adicional:");
+                List<Outros> listaAuxiliar = new List<Outros>(outrosTipos);
+                for (int i = 0; i < 3; i++)
+                {
+                    foreach (var outro in listaAuxiliar)
+                    {
+                        Console.WriteLine($"{listaAuxiliar.IndexOf(outro)}) {outro.Nome} - R${outro.Preco}");
+                    }
+                    int resposta = int.Parse(Console.ReadLine());
+
+                    agendamentoEscolhido.Outros.Add(listaAuxiliar[resposta]);
+                    listaAuxiliar.RemoveAt(resposta);
+
+                    if (listaAuxiliar.Count >= 1)
+                    {
+                        Console.WriteLine("Deseja escolher outro?");
+                        string resposta2 = Console.ReadLine();
+                        if (resposta2 != "sim" && resposta2 != "s")
+                        {
+                            break;
+                        }
+                    }
+                }
+                break;
+            case 7:
+                Console.WriteLine("Digite a nova data e hora no formato: dd/MM/yyyy HH:mm");
+                agendamentoEscolhido.DataHora = DateTime.Parse(Console.ReadLine());
+                break;
+            default:
+                Console.WriteLine("Escolha inválida.");
+                break;
+        }
+
+        Console.WriteLine("Alteração feita com sucesso!");
+        TelaInicial();
     }
 
     public static void TelaInicial()
@@ -184,7 +315,9 @@ class Program
         Console.WriteLine("Sistema de Agendamento");
         Console.WriteLine(@"Você gostaria de: 
 1) Agendar um corte 
-2) Ver a agenda");
+2) Ver a agenda
+3) Alterar um agendamento");
+
         int escolha = int.Parse(Console.ReadLine());
 
         switch (escolha)
@@ -194,6 +327,9 @@ class Program
                 break;
             case 2:
                 VerAgenda();
+                break;
+            case 3:
+                AlterarAgendamento();
                 break;
             default:
                 Console.WriteLine("Escolha inválida.");
