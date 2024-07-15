@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 
 namespace Barbearia
 {
     public class Agendamento
     {
+        public int Id { get; set; }
         public Cliente Cliente { get; set; }
         public Barbeiro Barbeiro { get; set; }
         public DateTime DataHora { get; set; }
@@ -28,6 +30,24 @@ namespace Barbearia
                 return total;
             }
         }
-
+        public static int GerarID()
+        {
+            int proximoID = 0;
+            
+           if (File.Exists("C:\\Users\\luigi.santos\\Desktop\\ProjetoIntegrador\\registrosBarbearia.txt"))
+            {
+                using (StreamReader reader = new StreamReader("C:\\Users\\luigi.santos\\Desktop\\ProjetoIntegrador\\registrosBarbearia.txt"))
+                {
+                    string linhaAtual;
+                    while((linhaAtual = reader.ReadLine()) != null)
+                    {
+                        string[] partesLinha = linhaAtual.Split(' ');
+                        string id = partesLinha[5];
+                        proximoID = int.Parse(id);
+                    }
+                }
+            }
+            return proximoID;
+        }
     }
 }

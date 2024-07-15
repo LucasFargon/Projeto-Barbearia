@@ -149,6 +149,7 @@ class Program
 
         Console.WriteLine("Escolha a data e a hora do agendamento no formato: dd/MM/yyyy HH:mm");
         DateTime dataHora = DateTime.Parse(Console.ReadLine());
+        int id = Agendamento.GerarID();
 
         Agendamento agendamento = new Agendamento
         {
@@ -157,27 +158,49 @@ class Program
             DataHora = dataHora,
             Cabelo = cabeloEscolhido,
             Barba = barbaEscolhida,
-            Outros = outroEscolhido
+            Outros = outroEscolhido,
+            Id = id
         };
 
         cliente.Agendamentos.Add(agendamento);
         barbeiroEscolhido.Agenda.Add(agendamento);
 
+        using (StreamWriter writer = new StreamWriter("C:\\Users\\luigi.santos\\Desktop\\ProjetoIntegrador\\registrosBarbearia.txt", true))
+        {
+            foreach (var barbeiro in barbeiros)
+            {
+                foreach (var agendamentowriter in barbeiro.Agenda)
+                {
+                    writer.WriteLine($"{agendamentowriter.Cliente.Nome} {agendamentowriter.Cliente.Cpf} {agendamentowriter.DataHora} {barbeiro.Id} {agendamentowriter.PrecoTotal}");
+                }
+            }
+        }
+
         Console.WriteLine($"O agendamento foi realizado com sucesso! Preço total: R${agendamento.PrecoTotal}");
+        Console.WriteLine("Digite qualquer tecla para voltar para a tela incial");
+        Console.ReadKey();
         TelaInicial();
     }
 
     public static void VerAgenda()
     {
         Console.Clear();
-        foreach (var barbeiro in barbeiros)
+        List<string> linhas = new List<string>();
+        using (StreamReader reader = new StreamReader("C:\\Users\\luigi.santos\\Desktop\\ProjetoIntegrador\\registrosBarbearia.txt"))
         {
-            Console.WriteLine($"Agenda do barbeiro {barbeiro.Nome}:");
-            foreach (var agendamento in barbeiro.Agenda)
+            string linha;
+            while((linha = reader.ReadLine()) != null)
             {
-                Console.WriteLine($"Cliente: {agendamento.Cliente.Nome}, Data e Hora: {agendamento.DataHora}, Preço: R${agendamento.PrecoTotal}");
+                linhas.Add(linha);
             }
-            Console.WriteLine();
+        }
+        foreach (var linha in linhas)
+        {
+            Console.WriteLine(linha);
+            if(linha == "Agenda do barbeiro Qualquer um:" || linha == "Agenda do barbeiro Solaire:" || linha == "Agenda do barbeiro Siegmeyer:" || linha == "Agenda do barbeiro Patches:")
+            {
+                Console.WriteLine();
+            }
         }
         Console.WriteLine("Pressione qualquer tecla para voltar a tela inicial!");
         Console.ReadKey();
@@ -228,11 +251,20 @@ class Program
 
         int escolha = int.Parse(Console.ReadLine());
 
+        List<string> linhas = new List<string>();       
         switch (escolha)
         {
             case 1:
                 Console.WriteLine("Digite o novo nome:");
                 cliente.Nome = Console.ReadLine();
+                using (StreamReader reader = new StreamReader("C:\\Users\\luigi.santos\\Desktop\\ProjetoIntegrador\\registrosBarbearia.txt"))
+                {
+                    string linha;
+                    while((linha = reader.ReadLine()) != null)
+                    {
+                        linhas.Add(linha);
+                    }
+                }
                 break;
             case 2:
                 Console.WriteLine("Digite o novo telefone:");
@@ -304,6 +336,8 @@ class Program
         }
 
         Console.WriteLine("Alteração feita com sucesso!");
+        Console.WriteLine("Pressione qualquer tecla para voltar a tela inicial!");
+        Console.ReadKey();
         TelaInicial();
     }
 

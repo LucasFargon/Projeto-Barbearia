@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Compaq\\Desktop\\Projeto Barbearia\\Barbearia\\Barbearia.csproj": {}
+    "C:\\Users\\luigi.santos\\Desktop\\ProjetoIntegrador\\Projeto-Barbearia\\Barbearia\\Barbearia.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Compaq\\Desktop\\Projeto Barbearia\\Barbearia\\Barbearia.csproj": {
+    "C:\\Users\\luigi.santos\\Desktop\\ProjetoIntegrador\\Projeto-Barbearia\\Barbearia\\Barbearia.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Compaq\\Desktop\\Projeto Barbearia\\Barbearia\\Barbearia.csproj",
+        "projectUniqueName": "C:\\Users\\luigi.santos\\Desktop\\ProjetoIntegrador\\Projeto-Barbearia\\Barbearia\\Barbearia.csproj",
         "projectName": "Barbearia",
-        "projectPath": "C:\\Users\\Compaq\\Desktop\\Projeto Barbearia\\Barbearia\\Barbearia.csproj",
-        "packagesPath": "C:\\Users\\Compaq\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Compaq\\Desktop\\Projeto Barbearia\\Barbearia\\obj\\",
+        "projectPath": "C:\\Users\\luigi.santos\\Desktop\\ProjetoIntegrador\\Projeto-Barbearia\\Barbearia\\Barbearia.csproj",
+        "packagesPath": "C:\\Users\\luigi.santos\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\luigi.santos\\Desktop\\ProjetoIntegrador\\Projeto-Barbearia\\Barbearia\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Compaq\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\luigi.santos\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
