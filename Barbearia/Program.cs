@@ -1,5 +1,6 @@
 ﻿using Barbearia;
 using System.Data;
+using System.Xml;
 class Program
 {
     static List<Barbeiro> barbeiros = new List<Barbeiro>
@@ -83,6 +84,12 @@ class Program
             }
             cabeloEscolhido = cortesCabelo[rCortesCabelo];
         }
+        else
+        {
+            cabeloEscolhido = new Cabelo();
+            cabeloEscolhido.Nome = "Nenhum";
+            cabeloEscolhido.Preco = 0;
+        }
 
         Console.WriteLine();
         Console.WriteLine("Gostaria de fazer a barba? (sim ou não)");
@@ -103,6 +110,12 @@ class Program
                 return;
             }
             barbaEscolhida = cortesBarba[rCortesBarba];
+        }
+        else
+        {
+            barbaEscolhida = new Barba();
+            barbaEscolhida.Nome = "Nenhuma";
+            barbaEscolhida.Preco = 0;
         }
 
         Console.WriteLine();
@@ -146,6 +159,13 @@ class Program
                 }
            }
         }
+        else
+        {
+            Outros outros = new Outros();
+            outros.Nome = "Nenhum";
+            outros.Preco = 0;
+            outroEscolhido.Add(outros);
+        }
 
         Console.WriteLine("Escolha a data e a hora do agendamento no formato: dd/MM/yyyy HH:mm");
         DateTime dataHora = DateTime.Parse(Console.ReadLine());
@@ -161,19 +181,19 @@ class Program
             Outros = outroEscolhido,
             Id = id
         };
-
         cliente.Agendamentos.Add(agendamento);
         barbeiroEscolhido.Agenda.Add(agendamento);
 
-        using (StreamWriter writer = new StreamWriter("C:\\Users\\luigi.santos\\Desktop\\ProjetoIntegrador\\registrosBarbearia.txt", true))
+        string outrosJuntos = "";
+        foreach (var outrosSeparados in agendamento.Outros)
         {
-            foreach (var barbeiro in barbeiros)
-            {
-                foreach (var agendamentowriter in barbeiro.Agenda)
-                {
-                    writer.WriteLine($"{agendamentowriter.Cliente.Nome} {agendamentowriter.Cliente.Cpf} {agendamentowriter.DataHora} {barbeiro.Id} {agendamentowriter.PrecoTotal}");
-                }
-            }
+            outrosJuntos += outrosSeparados.Nome + ",";
+        }
+        outrosJuntos = outrosJuntos.TrimEnd(',');
+        Directory.CreateDirectory("Pasta de Registros");
+        using (StreamWriter writer = new StreamWriter("Pasta de Registros\\registrosBarbearia.txt", true))
+        {
+            writer.WriteLine($"{agendamento.Id};{agendamento.Cliente.Nome};{agendamento.Cliente.Cpf};{agendamento.Cliente.Telefone};{agendamento.DataHora};{agendamento.Cabelo.Nome};{agendamento.Barba.Nome};{outrosJuntos};{agendamento.Barbeiro.Id};{agendamento.PrecoTotal}");
         }
 
         Console.WriteLine($"O agendamento foi realizado com sucesso! Preço total: R${agendamento.PrecoTotal}");
@@ -186,7 +206,8 @@ class Program
     {
         Console.Clear();
         List<string> linhas = new List<string>();
-        using (StreamReader reader = new StreamReader("C:\\Users\\luigi.santos\\Desktop\\ProjetoIntegrador\\registrosBarbearia.txt"))
+        using (StreamWriter writer = new StreamWriter("Pasta de Registros\\registrosBarbearia.txt", true)) { }
+        using (StreamReader reader = new StreamReader("Pasta de Registros\\registrosBarbearia.txt"))
         {
             string linha;
             while((linha = reader.ReadLine()) != null)
@@ -194,13 +215,20 @@ class Program
                 linhas.Add(linha);
             }
         }
-        foreach (var linha in linhas)
+        foreach (var barbeiroAgendamento in barbeiros)
         {
-            Console.WriteLine(linha);
-            if(linha == "Agenda do barbeiro Qualquer um:" || linha == "Agenda do barbeiro Solaire:" || linha == "Agenda do barbeiro Siegmeyer:" || linha == "Agenda do barbeiro Patches:")
+            Console.WriteLine($"Agenda do barbeiro {barbeiroAgendamento.Nome}:");
+            Console.WriteLine();
+            foreach (var linha in linhas)
             {
-                Console.WriteLine();
+                string[] partesLinha = linha.Split(';');
+                string idBarbeiro = (partesLinha[8]);
+                if(barbeiroAgendamento.Id == idBarbeiro)
+                {
+                    Console.WriteLine($"ID Agendamento: {partesLinha[0]}, Cliente: {partesLinha[1]}, CPF: {partesLinha[2]}, Telefone: {partesLinha[3]}, Data/Hora: {partesLinha[4]}, Corte: {partesLinha[5]}, Barba: {partesLinha[6]}, Outros: {partesLinha[7]}, Preço: R${partesLinha[9]}");
+                }
             }
+            Console.WriteLine();
         }
         Console.WriteLine("Pressione qualquer tecla para voltar a tela inicial!");
         Console.ReadKey();
@@ -210,24 +238,51 @@ class Program
     public static void AlterarAgendamento() 
     {
         Console.Clear();
-        Console.WriteLine("Digite o CPF do cliente:");
-        string cpfCliente = Console.ReadLine();
+        Console.WriteLine("Digite o ID do Agendamento:");
+        string idAgendamento = Console.ReadLine();
 
+        List<string> linhas = new List<string>();
+        using (StreamReader reader = new StreamReader("Pasta de Registros\\registrosBarbearia.txt"))
+        {
+            string linha;
+            while ((linha = reader.ReadLine()) != null)
+            {
+                linhas.Add(linha);
+            }
+        }
         Cliente cliente = null;
         Barbeiro barbeiroEscolhido = null;
         Agendamento agendamentoEscolhido = null;
 
-        foreach (var barbeiro in barbeiros)
+        foreach (var linha in linhas)
         {
-            foreach (var agendamento in barbeiro.Agenda)
+            string[] linhasPartes = linha.Split(";");
+            if (linhasPartes[0] == idAgendamento)
             {
-                if (agendamento.Cliente.Cpf == cpfCliente)
+                cliente = new Cliente();
+                cliente.Nome = linhasPartes[1];
+                cliente.Cpf = linhasPartes[2];
+                cliente.Telefone = linhasPartes[3];
+
+                barbeiroEscolhido = new Barbeiro();
+                barbeiroEscolhido.Id = linhasPartes[8];
+                barbeiroEscolhido.Nome = (barbeiros.Find(b => b.Id == linhasPartes[8])).Nome;
+
+                agendamentoEscolhido = new Agendamento();
+                agendamentoEscolhido.Id = int.Parse(linhasPartes[0]);
+                agendamentoEscolhido.Cliente = cliente;
+                agendamentoEscolhido.Barbeiro = barbeiroEscolhido;
+                agendamentoEscolhido.DataHora = DateTime.Parse(linhasPartes[4]);
+                agendamentoEscolhido.Cabelo = cortesCabelo.Find(c => c.Nome == linhasPartes[5]);
+                agendamentoEscolhido.Barba = cortesBarba.Find(c => c.Nome == linhasPartes[6]);
+                string[] outrosAux = (linhasPartes[7].Split(","));
+                foreach (string x in outrosAux)
                 {
-                    cliente = agendamento.Cliente;
-                    barbeiroEscolhido = barbeiro;
-                    agendamentoEscolhido = agendamento;
-                    break;
+                    Outros teste = outrosTipos.Find(o => o.Nome == x);
+                    agendamentoEscolhido.Outros.Add(teste);
                 }
+                agendamentoEscolhido.PrecoTotal = int.Parse(linhasPartes[9]);
+
             }
         }
         
@@ -251,20 +306,31 @@ class Program
 
         int escolha = int.Parse(Console.ReadLine());
 
-        List<string> linhas = new List<string>();       
+  
         switch (escolha)
         {
             case 1:
                 Console.WriteLine("Digite o novo nome:");
-                cliente.Nome = Console.ReadLine();
-                using (StreamReader reader = new StreamReader("C:\\Users\\luigi.santos\\Desktop\\ProjetoIntegrador\\registrosBarbearia.txt"))
+                string novoNome = Console.ReadLine();
+                foreach(var linha in linhas)
                 {
-                    string linha;
-                    while((linha = reader.ReadLine()) != null)
+                    string[] partesLinhas = (linha.Split(";"));
+                    if (agendamentoEscolhido.Id == int.Parse(partesLinhas[0]))
                     {
-                        linhas.Add(linha);
+                        partesLinhas[1] = partesLinhas[1].Replace(cliente.Nome, novoNome);
                     }
                 }
+                string arquivoTemp = Path.GetTempFileName();
+                using (StreamWriter writerTemp = new StreamWriter(arquivoTemp))
+                {
+                    foreach(string linha in linhas)
+                    {
+                        writerTemp.WriteLine(linha);
+                    }
+                }
+                File.Delete("Pasta de Registros\\registrosBarbearia.txt");
+                File.Move(arquivoTemp, "Pasta de Registros\\registrosBarbearia.txt");
+                cliente.Nome = novoNome;
                 break;
             case 2:
                 Console.WriteLine("Digite o novo telefone:");

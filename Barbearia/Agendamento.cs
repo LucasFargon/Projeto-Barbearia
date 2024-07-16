@@ -15,7 +15,7 @@ namespace Barbearia
         public DateTime DataHora { get; set; }
         public Cabelo Cabelo { get; set; }
         public Barba Barba { get; set; }
-        public List<Outros> Outros { get; set; }
+        public List<Outros> Outros { get; set; } = new List<Outros>();
         public double PrecoTotal
         {
             get
@@ -29,21 +29,25 @@ namespace Barbearia
                 }
                 return total;
             }
+            set { }
         }
         public static int GerarID()
         {
-            int proximoID = 0;
+           int proximoID = 1;
             
-           if (File.Exists("C:\\Users\\luigi.santos\\Desktop\\ProjetoIntegrador\\registrosBarbearia.txt"))
+           if (File.Exists("Pasta de Registros\\registrosBarbearia.txt"))
             {
-                using (StreamReader reader = new StreamReader("C:\\Users\\luigi.santos\\Desktop\\ProjetoIntegrador\\registrosBarbearia.txt"))
+                if(new FileInfo("Pasta de Registros\\registrosBarbearia.txt").Length > 0)
                 {
-                    string linhaAtual;
-                    while((linhaAtual = reader.ReadLine()) != null)
+                    using (StreamReader reader = new StreamReader("Pasta de Registros\\registrosBarbearia.txt"))
                     {
-                        string[] partesLinha = linhaAtual.Split(' ');
-                        string id = partesLinha[5];
-                        proximoID = int.Parse(id);
+                        string linhaAtual;
+                        while((linhaAtual = reader.ReadLine()) != null)
+                        {
+                            string[] partesLinha = linhaAtual.Split(' ');
+                            string id = partesLinha[0];
+                            proximoID = int.Parse(id) + 1;
+                        }
                     }
                 }
             }
