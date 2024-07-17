@@ -597,6 +597,55 @@ class Program
         TelaInicial();
     }
 
+    public static void ExcluirAgendamento()
+    {
+        Console.Clear();
+        Console.WriteLine("Qual o ID do agendamento que deseja excluir?");
+        int idAgendamento = int.Parse(Console.ReadLine());
+        List<string> linhas = new List<string>();
+        using (StreamReader reader = new StreamReader("Pasta de Registros\\registrosBarbearia.txt"))
+        {
+            string linha;
+            while ((linha = reader.ReadLine()) != null)
+            {
+                linhas.Add(linha);
+            }
+        }
+        string arquivoTemp = Path.GetTempFileName();
+        bool idEncontrado = false;
+        foreach (var linha in linhas)
+        {
+            string[] partesLinhas = linha.Split(';');
+            using (StreamWriter writerTemp = new StreamWriter(arquivoTemp, true))
+            {
+                if(idAgendamento != int.Parse(partesLinhas[0]))
+                {
+                    writerTemp.WriteLine(linha);
+                }
+                else
+                {
+                    idEncontrado = true;
+                }
+            }
+        }
+        File.Delete("Pasta de Registros\\registrosBarbearia.txt");
+        File.Move(arquivoTemp, "Pasta de Registros\\registrosBarbearia.txt");
+        if (idEncontrado)
+        {
+            Console.WriteLine("Exclusão feita com sucesso!");
+            Console.WriteLine("Pressione qualquer tecla para voltar a tela inicial!");
+            Console.ReadKey();
+            TelaInicial();
+        }
+        else
+        {
+            Console.WriteLine("Registro não Encontrado");
+            Console.WriteLine("Pressione qualquer tecla para voltar a tela inicial!");
+            Console.ReadKey();
+            TelaInicial();
+        }
+    }
+
     public static void TelaInicial()
     {
         Console.Clear();
@@ -606,7 +655,8 @@ class Program
         Console.WriteLine(@"Você gostaria de: 
 1) Agendar um corte 
 2) Ver a agenda
-3) Alterar um agendamento");
+3) Alterar um agendamento
+4) Excluir um Agendamento");
 
         int escolha = int.Parse(Console.ReadLine());
 
@@ -621,8 +671,12 @@ class Program
             case 3:
                 AlterarAgendamento();
                 break;
+            case 4:
+                ExcluirAgendamento();
+                break;
             default:
                 Console.WriteLine("Escolha inválida.");
+                TelaInicial();
                 break;
         }
     }
