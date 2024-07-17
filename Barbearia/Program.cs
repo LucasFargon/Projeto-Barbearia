@@ -466,7 +466,7 @@ class Program
                 {
                     Console.WriteLine("Digite o novo nome:");
                     novoNome = Console.ReadLine();
-                    if (novoNome.Length < 0)
+                    if (novoNome.Length <= 0)
                     {
                         Console.WriteLine("ERRO: Digite um nome!");
                     }
@@ -682,6 +682,7 @@ class Program
                 Console.WriteLine("Escolha o novo pedido adicional:");
                 List<Outros> listaAuxiliar = new List<Outros>(outrosTipos);
                 List<Outros> listaTemp = new List<Outros>();
+                listaAuxiliar.RemoveAt(0);
                 for (int i = 0; i < 3; i++)
                 {
                     int resposta;
@@ -711,11 +712,11 @@ class Program
                         {
                             Console.WriteLine("Deseja escolher outro?");
                             string resposta2 = Console.ReadLine();
-                            if (resposta2 == "sim" && resposta2 == "s")
+                            if (resposta2.ToLower() == "sim" || resposta2.ToLower() == "s")
                             {
                                 break;
                             }
-                            else if (resposta2 == "sim" && resposta2 == "s")
+                            else if (resposta2.ToLower() == "n" || resposta2.ToLower() == "não")
                             {
                                 i = 3;
                                 break;
