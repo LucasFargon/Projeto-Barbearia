@@ -8,19 +8,19 @@
     "net8.0": []
   },
   "packageFolders": {
-    "C:\\Users\\luigi\\.nuget\\packages\\": {}
+    "C:\\Users\\luigi.santos\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\luigi\\Desktop\\Barbearia Luigi\\Projeto-Barbearia\\Barbearia\\Barbearia.csproj",
+      "projectUniqueName": "C:\\Users\\luigi.santos\\Desktop\\BarbeariaLuigi\\Projeto-Barbearia\\Barbearia\\Barbearia.csproj",
       "projectName": "Barbearia",
-      "projectPath": "C:\\Users\\luigi\\Desktop\\Barbearia Luigi\\Projeto-Barbearia\\Barbearia\\Barbearia.csproj",
-      "packagesPath": "C:\\Users\\luigi\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\luigi\\Desktop\\Barbearia Luigi\\Projeto-Barbearia\\Barbearia\\obj\\",
+      "projectPath": "C:\\Users\\luigi.santos\\Desktop\\BarbeariaLuigi\\Projeto-Barbearia\\Barbearia\\Barbearia.csproj",
+      "packagesPath": "C:\\Users\\luigi.santos\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\luigi.santos\\Desktop\\BarbeariaLuigi\\Projeto-Barbearia\\Barbearia\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\luigi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\luigi.santos\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -66,7 +66,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.202/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
