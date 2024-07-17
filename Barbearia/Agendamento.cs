@@ -44,7 +44,7 @@ namespace Barbearia
                         string linhaAtual;
                         while((linhaAtual = reader.ReadLine()) != null)
                         {
-                            string[] partesLinha = linhaAtual.Split(' ');
+                            string[] partesLinha = linhaAtual.Split(';');
                             string id = partesLinha[0];
                             proximoID = int.Parse(id) + 1;
                         }

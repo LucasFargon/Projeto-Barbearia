@@ -13,6 +13,7 @@ class Program
 
     static List<Cabelo> cortesCabelo = new List<Cabelo>
         {
+            new Cabelo { Nome = "Nenhum", Preco = 0},
             new Cabelo { Nome = "Americano", Preco = 30},
             new Cabelo { Nome = "Mid Fade", Preco = 30 },
             new Cabelo { Nome = "Low Fade", Preco = 30 }
@@ -20,6 +21,7 @@ class Program
 
     static List<Barba> cortesBarba = new List<Barba>
         {
+            new Barba { Nome = "Nenhum", Preco = 0},
             new Barba { Nome = "Lenhador", Preco = 40},
             new Barba { Nome = "Cavanhaque", Preco = 25 },
             new Barba { Nome = "Alinhamento", Preco = 20 }
@@ -27,6 +29,7 @@ class Program
 
     static List<Outros> outrosTipos = new List<Outros>
         {
+            new Outros { Nome = "Nenhum", Preco = 0},
             new Outros { Nome = "Sobrancelha", Preco = 10},
             new Outros { Nome = "Corte Navalhado", Preco = 10 },
             new Outros { Nome = "Tirar pelos do nariz e orelhas", Preco = 5 }
@@ -67,22 +70,24 @@ class Program
         Console.WriteLine();
         Console.WriteLine("Gostaria de fazer um corte de cabelo? (sim ou não)");
         string cortarCabelo = Console.ReadLine();
+        List<Cabelo> listaAuxiliarCabelo = new List<Cabelo>(cortesCabelo);
+        listaAuxiliarCabelo.RemoveAt(0);
 
         if (cortarCabelo.ToLower() == "sim" || cortarCabelo.ToLower() == "s")
         {
             Console.WriteLine("Escolha o tipo de corte de cabelo:");
-            foreach (var cabelo in cortesCabelo)
+            foreach (var cabelo in listaAuxiliarCabelo)
             {
-                Console.WriteLine($"{cortesCabelo.IndexOf(cabelo)}) {cabelo.Nome} - R${cabelo.Preco}");
+                Console.WriteLine($"{listaAuxiliarCabelo.IndexOf(cabelo)}) {cabelo.Nome} - R${cabelo.Preco}");
             }
-            Console.WriteLine($"{cortesCabelo.Count}) Para voltar para a tela inicial");
+            Console.WriteLine($"{listaAuxiliarCabelo.Count}) Para voltar para a tela inicial");
             int rCortesCabelo = int.Parse(Console.ReadLine());
-            if (rCortesCabelo == cortesCabelo.Count)
+            if (rCortesCabelo == listaAuxiliarCabelo.Count)
             {
                 TelaInicial();
                 return;
             }
-            cabeloEscolhido = cortesCabelo[rCortesCabelo];
+            cabeloEscolhido = listaAuxiliarCabelo[rCortesCabelo];
         }
         else
         {
@@ -94,22 +99,24 @@ class Program
         Console.WriteLine();
         Console.WriteLine("Gostaria de fazer a barba? (sim ou não)");
         string cortarBarba = Console.ReadLine();
+        List<Barba> listaAuxiliarBarba = new List<Barba>(cortesBarba);
+        listaAuxiliarBarba.RemoveAt(0);
 
         if (cortarBarba.ToLower() == "sim" || cortarBarba.ToLower() == "s")
         {
             Console.WriteLine("Escolha o tipo de barba:");
-            foreach (var barba in cortesBarba)
+            foreach (var barba in listaAuxiliarBarba)
             {
-                Console.WriteLine($"{cortesBarba.IndexOf(barba)}) {barba.Nome} - R${barba.Preco}");
+                Console.WriteLine($"{listaAuxiliarBarba.IndexOf(barba)}) {barba.Nome} - R${barba.Preco}");
             }
-            Console.WriteLine($"{cortesBarba.Count}) Para voltar para a tela inicial");
+            Console.WriteLine($"{listaAuxiliarBarba.Count}) Para voltar para a tela inicial");
             int rCortesBarba = int.Parse(Console.ReadLine());
-            if (rCortesBarba == cortesBarba.Count)
+            if (rCortesBarba == listaAuxiliarBarba.Count)
             {
                 TelaInicial();
                 return;
             }
-            barbaEscolhida = cortesBarba[rCortesBarba];
+            barbaEscolhida = listaAuxiliarBarba[rCortesBarba];
         }
         else
         {
@@ -125,30 +132,31 @@ class Program
         if (pedidoAdicional.ToLower() == "sim" || pedidoAdicional.ToLower() == "s")
         {
            Console.WriteLine("Escolha um pedido adicional:");
-           List<Outros> listaAuxiliar = new List<Outros>();
-            listaAuxiliar = outrosTipos;
+           List<Outros> listaAuxiliarOutros = new List<Outros>();
+            listaAuxiliarOutros = outrosTipos;
+            listaAuxiliarOutros.RemoveAt(0);
            for (int i = 0; i < 3; i++)
             {
-                foreach (var outro in listaAuxiliar)
+                foreach (var outro in listaAuxiliarOutros)
                 {
-                    Console.WriteLine($"{listaAuxiliar.IndexOf(outro)}) {outro.Nome} - R${outro.Preco}");
+                    Console.WriteLine($"{listaAuxiliarOutros.IndexOf(outro)}) {outro.Nome} - R${outro.Preco}");
                 }
-                Console.WriteLine($"{listaAuxiliar.Count}) Para voltar para a tela inicial");
+                Console.WriteLine($"{listaAuxiliarOutros.Count}) Para voltar para a tela inicial");
                 int resposta = int.Parse(Console.ReadLine());
 
-                if (resposta == listaAuxiliar.Count)
+                if (resposta == listaAuxiliarOutros.Count)
                 {
                     TelaInicial();
                     return;
                 }
 
-                Console.WriteLine($"{listaAuxiliar[resposta].Nome} Escolhido");
+                Console.WriteLine($"{listaAuxiliarOutros[resposta].Nome} Escolhido");
                 Console.WriteLine();
 
-                outroEscolhido.Add(listaAuxiliar[resposta]);
-                listaAuxiliar.RemoveAt(resposta);
+                outroEscolhido.Add(listaAuxiliarOutros[resposta]);
+                listaAuxiliarOutros.RemoveAt(resposta);
 
-                if (listaAuxiliar.Count >= 1)
+                if (listaAuxiliarOutros.Count >= 1)
                 {
                     Console.WriteLine("Deseja escolher outro?");
                     string resposta2 = Console.ReadLine();
@@ -296,13 +304,14 @@ class Program
         }
 
         Console.WriteLine("O que você gostaria de alterar?");
-        Console.WriteLine("1) Nome " +
-            "2) Telefone " +
-            "3) Barbeiro" +
-            "4) Corte de Cabelo" +
-            "5) Barba" +
-            "6) Pedido Adicional" +
-            "7) Data e Hora");
+        Console.WriteLine(@"1) Nome 
+2) CPF
+3) Telefone
+4) Data e Hora
+5) Corte de Cabelo
+6) Barba
+7) Pedido Adicional
+8) Barbeiro");
 
         int escolha = int.Parse(Console.ReadLine());
 
@@ -312,64 +321,156 @@ class Program
             case 1:
                 Console.WriteLine("Digite o novo nome:");
                 string novoNome = Console.ReadLine();
-                foreach(var linha in linhas)
-                {
-                    string[] partesLinhas = (linha.Split(";"));
-                    if (agendamentoEscolhido.Id == int.Parse(partesLinhas[0]))
-                    {
-                        partesLinhas[1] = partesLinhas[1].Replace(cliente.Nome, novoNome);
-                    }
-                }
                 string arquivoTemp = Path.GetTempFileName();
-                using (StreamWriter writerTemp = new StreamWriter(arquivoTemp))
-                {
-                    foreach(string linha in linhas)
+                using (StreamWriter writerTemp = new StreamWriter(arquivoTemp, true))
+                    foreach(var linha in linhas)
                     {
-                        writerTemp.WriteLine(linha);
+                        string[] partesLinhas = (linha.Split(";"));
+                        if (agendamentoEscolhido.Id == int.Parse(partesLinhas[0]))
+                        {
+                            string linhaTemp = linha.Replace(partesLinhas[1], novoNome);
+                            writerTemp.WriteLine(linhaTemp);
+                        }
+                        else
+                        {
+                            writerTemp.WriteLine(linha);
+                        }
                     }
-                }
                 File.Delete("Pasta de Registros\\registrosBarbearia.txt");
                 File.Move(arquivoTemp, "Pasta de Registros\\registrosBarbearia.txt");
                 cliente.Nome = novoNome;
                 break;
             case 2:
-                Console.WriteLine("Digite o novo telefone:");
-                cliente.Telefone = Console.ReadLine();
+                Console.WriteLine("Digite o novo CPF");
+                string novoCPF = Console.ReadLine();
+                arquivoTemp = Path.GetTempFileName();
+                using (StreamWriter writerTemp = new StreamWriter(arquivoTemp, true))
+                {
+                    foreach (var linha in linhas)
+                    {
+                        string[] partesLinhas = linha.Split(";");
+                        if (agendamentoEscolhido.Id == int.Parse(partesLinhas[0]))
+                        {
+                            string linhaTemp = linha.Replace(partesLinhas[2], novoCPF);
+                            writerTemp.WriteLine(linhaTemp);
+                        }
+                        else
+                        {
+                            writerTemp.WriteLine(linha);
+                        }
+                    }
+                }
+                File.Delete("Pasta de Registros\\registrosBarbearia.txt");
+                File.Move(arquivoTemp, "Pasta de Registros\\registrosBarbearia.txt");
                 break;
             case 3:
-                Console.WriteLine("Escolha o novo barbeiro:");
-                foreach (var barbeiro in barbeiros)
+                Console.WriteLine("Digite o novo telefone:");
+                string novoTelefone = Console.ReadLine();
+                arquivoTemp = Path.GetTempFileName();
+                using (StreamWriter writerTemp = new StreamWriter(arquivoTemp, true))
                 {
-                    Console.WriteLine($"{barbeiro.Id}) {barbeiro.Nome}");
+                    foreach(var linha in linhas)
+                    {
+                        string[] partesLinhas = linha.Split(";");
+                        if (agendamentoEscolhido.Id == int.Parse(partesLinhas[0]))
+                        {
+                            string linhaTemp = linha.Replace(partesLinhas[3], novoTelefone);
+                            writerTemp.WriteLine(linhaTemp);
+                        }
+                        else
+                        {
+                            writerTemp.WriteLine(linha);
+                        }
+                    }
                 }
-                string idBarbeiro = Console.ReadLine();
-
-                barbeiroEscolhido.Agenda.Remove(agendamentoEscolhido);
-                barbeiroEscolhido = barbeiros.Find(b => b.Id == idBarbeiro);
-                agendamentoEscolhido.Barbeiro = barbeiroEscolhido;
-                barbeiroEscolhido.Agenda.Add(agendamentoEscolhido);
+                File.Delete("Pasta de Registros\\registrosBarbearia.txt");
+                File.Move(arquivoTemp, "Pasta de Registros\\registrosBarbearia.txt");
+                cliente.Telefone = novoTelefone;
                 break;
             case 4:
+                Console.WriteLine("Digite a nova data e hora no formato: dd/MM/yyyy HH:mm");
+                string novaData = (Console.ReadLine());
+                arquivoTemp = Path.GetTempFileName();
+                using (StreamWriter writerTemp = new StreamWriter(arquivoTemp, true))
+                {
+                    foreach (var linha in linhas)
+                    {
+                        string[] partesLinhas = linha.Split(";");
+                        if (agendamentoEscolhido.Id == int.Parse(partesLinhas[0]))
+                        {
+                            string linhaTemp = linha.Replace(partesLinhas[4], novaData);
+                            writerTemp.WriteLine(linhaTemp);
+                        }
+                        else
+                        {
+                            writerTemp.WriteLine(linha);
+                        }
+                    }
+                }
+                File.Delete("Pasta de Registros\\registrosBarbearia.txt");
+                File.Move(arquivoTemp, "Pasta de Registros\\registrosBarbearia.txt");
+                agendamentoEscolhido.DataHora = DateTime.Parse(novaData);
+                break;
+            case 5:
                 Console.WriteLine("Escolha o novo corte de cabelo:");
                 foreach (var cabelo in cortesCabelo)
                 {
                     Console.WriteLine($"{cortesCabelo.IndexOf(cabelo)}) {cabelo.Nome} - R${cabelo.Preco}");
                 }
                 int rCortesCabelo = int.Parse(Console.ReadLine());
+                arquivoTemp = Path.GetTempFileName();
+                using (StreamWriter writerTemp = new StreamWriter(arquivoTemp, true))
+                {
+                    foreach (var linha in linhas)
+                    {
+                        string[] partesLinhas = linha.Split(";");
+                        if (agendamentoEscolhido.Id == int.Parse(partesLinhas[0]))
+                        {
+                            string linhaTemp = linha.Replace(partesLinhas[5], (cortesCabelo[rCortesCabelo].Nome));
+                            writerTemp.WriteLine(linhaTemp);
+                        }
+                        else
+                        {
+                            writerTemp.WriteLine(linha);
+                        }
+                    }
+                }
+                File.Delete("Pasta de Registros\\registrosBarbearia.txt");
+                File.Move(arquivoTemp, "Pasta de Registros\\registrosBarbearia.txt");
                 agendamentoEscolhido.Cabelo = cortesCabelo[rCortesCabelo];
                 break;
-            case 5:
+            case 6:
                 Console.WriteLine("Escolha o novo corte de barba:");
                 foreach (var barba in cortesBarba)
                 {
                     Console.WriteLine($"{cortesBarba.IndexOf(barba)}) {barba.Nome} - R${barba.Preco}");
                 }
                 int rCortesBarba = int.Parse(Console.ReadLine());
+                arquivoTemp = Path.GetTempFileName();
+                using (StreamWriter writerTemp = new StreamWriter(arquivoTemp, true))
+                {
+                    foreach (var linha in linhas)
+                    {
+                        string[] partesLinhas = linha.Split(";");
+                        if (agendamentoEscolhido.Id == int.Parse(partesLinhas[0]))
+                        {
+                            string linhaTemp = linha.Replace(partesLinhas[6], (cortesBarba[rCortesBarba].Nome));
+                            writerTemp.WriteLine(linhaTemp);
+                        }
+                        else
+                        {
+                            writerTemp.WriteLine(linha);
+                        }
+                    }
+                }
+                File.Delete("Pasta de Registros\\registrosBarbearia.txt");
+                File.Move(arquivoTemp, "Pasta de Registros\\registrosBarbearia.txt");
                 agendamentoEscolhido.Barba = cortesBarba[rCortesBarba];
                 break;
-            case 6:
+            case 7:
                 Console.WriteLine("Escolha o novo pedido adicional:");
                 List<Outros> listaAuxiliar = new List<Outros>(outrosTipos);
+                List<Outros> listaTemp = new List<Outros>();
                 for (int i = 0; i < 3; i++)
                 {
                     foreach (var outro in listaAuxiliar)
@@ -378,7 +479,7 @@ class Program
                     }
                     int resposta = int.Parse(Console.ReadLine());
 
-                    agendamentoEscolhido.Outros.Add(listaAuxiliar[resposta]);
+                    listaTemp.Add(listaAuxiliar[resposta]);
                     listaAuxiliar.RemoveAt(resposta);
 
                     if (listaAuxiliar.Count >= 1)
@@ -391,15 +492,104 @@ class Program
                         }
                     }
                 }
+                string outrosJuntos = "";
+                foreach (var outrosSeparados in listaTemp)
+                {
+                    outrosJuntos += outrosSeparados.Nome + ',';
+                }
+                outrosJuntos = outrosJuntos.TrimEnd(',');
+                arquivoTemp = Path.GetTempFileName();
+                using (StreamWriter writerTemp = new StreamWriter(arquivoTemp, true))
+                {
+                    foreach (var linha in linhas)
+                    {
+                        string[] partesLinhas = linha.Split(";");
+                        if (agendamentoEscolhido.Id == int.Parse(partesLinhas[0]))
+                        {
+                            string linhaTemp = linha.Replace(partesLinhas[7], outrosJuntos);
+                            writerTemp.WriteLine(linhaTemp);
+                        }
+                        else
+                        {
+                            writerTemp.WriteLine(linha);
+                        }
+                    }
+                }
+                agendamentoEscolhido.Outros.Clear();
+                foreach (var adicionarAgendamentos in listaTemp)
+                {
+                    agendamentoEscolhido.Outros.Add(adicionarAgendamentos);
+                }
+                File.Delete("Pasta de Registros\\registrosBarbearia.txt");
+                File.Move(arquivoTemp, "Pasta de Registros\\registrosBarbearia.txt");
                 break;
-            case 7:
-                Console.WriteLine("Digite a nova data e hora no formato: dd/MM/yyyy HH:mm");
-                agendamentoEscolhido.DataHora = DateTime.Parse(Console.ReadLine());
+            case 8:
+                Console.WriteLine("Escolha o novo barbeiro:");
+                foreach (var barbeiro in barbeiros)
+                {
+                    Console.WriteLine($"{barbeiro.Id}) {barbeiro.Nome}");
+                }
+                string idBarbeiro = Console.ReadLine();
+                arquivoTemp = Path.GetTempFileName();
+                using (StreamWriter writerTemp = new StreamWriter(arquivoTemp, true))
+                {
+                    foreach (var linha in linhas)
+                    {
+                        string[] partesLinhas = linha.Split(";");
+                        if (agendamentoEscolhido.Id == int.Parse(partesLinhas[0]))
+                        {
+                            string linhaTemp = linha.Replace(partesLinhas[8], idBarbeiro);
+                            writerTemp.WriteLine(linhaTemp);
+                        }
+                        else
+                        {
+                            writerTemp.WriteLine(linha);
+                        }
+                    }
+                }
+                File.Delete("Pasta de Registros\\registrosBarbearia.txt");
+                File.Move(arquivoTemp, "Pasta de Registros\\registrosBarbearia.txt");
+
+                barbeiroEscolhido.Agenda.Remove(agendamentoEscolhido);
+                barbeiroEscolhido = barbeiros.Find(b => b.Id == idBarbeiro);
+                agendamentoEscolhido.Barbeiro = barbeiroEscolhido;
+                barbeiroEscolhido.Agenda.Add(agendamentoEscolhido);
                 break;
             default:
                 Console.WriteLine("Escolha inválida.");
+                Console.WriteLine("Pressione qualquer tecla para voltar a tela inicial!");
+                Console.ReadKey();
+                TelaInicial();
                 break;
         }
+        linhas.Clear();
+        using (StreamReader reader = new StreamReader("Pasta de Registros\\registrosBarbearia.txt"))
+        {
+            string linha;
+            while ((linha = reader.ReadLine()) != null)
+            {
+                linhas.Add(linha);
+            }
+        }
+        string arquivoTempPreco = Path.GetTempFileName();
+        using (StreamWriter writerTemp = new StreamWriter(arquivoTempPreco, true))
+        {
+            foreach (var linha in linhas)
+            {
+                string[] partesLinhas = linha.Split(";");
+                if (agendamentoEscolhido.Id == int.Parse(partesLinhas[0]))
+                {
+                    string linhaTemp = linha.Replace(partesLinhas[9], ($"{agendamentoEscolhido.PrecoTotal}"));
+                    writerTemp.WriteLine(linhaTemp);
+                }
+                else
+                {
+                    writerTemp.WriteLine(linha);
+                }
+            }
+        }
+        File.Delete("Pasta de Registros\\registrosBarbearia.txt");
+        File.Move(arquivoTempPreco, "Pasta de Registros\\registrosBarbearia.txt");
 
         Console.WriteLine("Alteração feita com sucesso!");
         Console.WriteLine("Pressione qualquer tecla para voltar a tela inicial!");
