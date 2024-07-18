@@ -1,6 +1,9 @@
 ﻿using Barbearia;
 using System.Data;
 using System.Xml;
+using System.Drawing;
+using Console = Colorful.Console;
+using System.Threading;
 class Program
 {
     static List<Barbeiro> barbeiros = new List<Barbeiro>
@@ -13,7 +16,6 @@ class Program
 
     static List<Cabelo> cortesCabelo = new List<Cabelo>
         {
-            new Cabelo { Nome = "Nenhum", Preco = 0},
             new Cabelo { Nome = "Americano", Preco = 30},
             new Cabelo { Nome = "Mid Fade", Preco = 30 },
             new Cabelo { Nome = "Low Fade", Preco = 30 }
@@ -21,7 +23,6 @@ class Program
 
     static List<Barba> cortesBarba = new List<Barba>
         {
-            new Barba { Nome = "Nenhum", Preco = 0},
             new Barba { Nome = "Lenhador", Preco = 40},
             new Barba { Nome = "Cavanhaque", Preco = 25 },
             new Barba { Nome = "Alinhamento", Preco = 20 }
@@ -35,30 +36,93 @@ class Program
             new Outros { Nome = "Tirar pelos do nariz e orelhas", Preco = 5 }
         };
 
+    public static void Say(string indice, string mensagem)
+    {
+        Console.Write("[");
+        Console.Write(indice, Color.BlueViolet);
+        Console.Write("]");
+        Console.WriteLine(mensagem);
+    }
 
     public static void AgendarCorte()
     {
         Console.Clear();
-        Console.WriteLine("Digite o nome do cliente:");
-        string nomeCliente = Console.ReadLine();
-        Console.WriteLine("Digite o CPF do cliente:");
-        string cpfCliente = Console.ReadLine();
-        Console.WriteLine("Digite o telefone do cliente:");
-        string telCliente = Console.ReadLine();
+        string nomeCliente;
+        while (true)
+        {
+            Console.WriteLine("Digite o nome do cliente:");
+            nomeCliente = Console.ReadLine();
+            if(nomeCliente.Length <= 0 )
+            {
+                Console.WriteLine("ERRO: Digite um nome!", Color.Red);
+            }
+            else
+            {
+                break;
+            }
+        }
+        string cpfCliente;
+        while (true)
+        {
+            Console.WriteLine("Digite o CPF do cliente:");
+            cpfCliente = Console.ReadLine();
+            if(cpfCliente.Length != 11)
+            {
+                Console.WriteLine("ERRO: Digite um CPF válido!", Color.Red);
+            }
+            else
+            {
+                break;
+            }
+        }
+        string telCliente;
+        while (true)
+        {
+            Console.WriteLine("Digite o telefone do cliente (9 dígitos):");
+            telCliente = Console.ReadLine();
+            if(telCliente.Length != 9)
+            {
+                Console.WriteLine("ERRO: Digite um número válido!", Color.Red);
+            }
+            else
+            {
+                break;
+            }
+
+        }
         Cliente cliente = new Cliente { Nome = nomeCliente, Cpf = cpfCliente, Telefone = telCliente };
 
-        Console.WriteLine("Qual Barbeiro o cliente deseja ser atendido?");
-        foreach (var barbeiro in barbeiros)
+        string idBarbeiro;
+        while (true)
         {
-            Console.WriteLine($"{barbeiro.Id}) {barbeiro.Nome}");
-        }
-        Console.WriteLine($"{barbeiros.Count}) Para voltar para a tela inicial");
+            try
+            {
+                Console.WriteLine("Qual Barbeiro o cliente deseja ser atendido?");
+                foreach (var barbeiro in barbeiros)
+                {
+                    Say(barbeiro.Id, barbeiro.Nome);
+                }
+                Say($"{barbeiros.Count}", "Para voltar para a tela inicial");
 
-        string idBarbeiro = Console.ReadLine();
-        if (int.Parse(idBarbeiro) == barbeiros.Count)
-        {
-            TelaInicial();
-            return;
+                idBarbeiro = Console.ReadLine();
+                if (int.Parse(idBarbeiro) == barbeiros.Count)
+                {
+                    TelaInicial();
+                    return;
+                }
+                else if (int.Parse(idBarbeiro) > barbeiros.Count)
+                {
+                    Console.WriteLine("ERRO: Barbeiro não encontrado!", Color.Red);
+                }
+                else
+                {
+                    break;
+                }
+            }
+            catch
+            {
+                Console.WriteLine("ERRO: Digite um número válido!", Color.Red);
+            }
         }
 
         Barbeiro barbeiroEscolhido = barbeiros.Find(b => b.Id == idBarbeiro);
@@ -67,116 +131,202 @@ class Program
         Barba barbaEscolhida = null;
         List<Outros> outroEscolhido = new List<Outros>();
 
-        Console.WriteLine();
-        Console.WriteLine("Gostaria de fazer um corte de cabelo? (sim ou não)");
-        string cortarCabelo = Console.ReadLine();
-        List<Cabelo> listaAuxiliarCabelo = new List<Cabelo>(cortesCabelo);
-        listaAuxiliarCabelo.RemoveAt(0);
-
-        if (cortarCabelo.ToLower() == "sim" || cortarCabelo.ToLower() == "s")
+        string cortarCabelo;
+        while (true)
         {
-            Console.WriteLine("Escolha o tipo de corte de cabelo:");
-            foreach (var cabelo in listaAuxiliarCabelo)
-            {
-                Console.WriteLine($"{listaAuxiliarCabelo.IndexOf(cabelo)}) {cabelo.Nome} - R${cabelo.Preco}");
-            }
-            Console.WriteLine($"{listaAuxiliarCabelo.Count}) Para voltar para a tela inicial");
-            int rCortesCabelo = int.Parse(Console.ReadLine());
-            if (rCortesCabelo == listaAuxiliarCabelo.Count)
-            {
-                TelaInicial();
-                return;
-            }
-            cabeloEscolhido = listaAuxiliarCabelo[rCortesCabelo];
-        }
-        else
-        {
-            cabeloEscolhido = new Cabelo();
-            cabeloEscolhido.Nome = "Nenhum";
-            cabeloEscolhido.Preco = 0;
-        }
+            Console.WriteLine();
+            Console.WriteLine("Gostaria de fazer um corte de cabelo? (sim ou não)");
+            cortarCabelo = Console.ReadLine();
+            List<Cabelo> listaAuxiliarCabelo = new List<Cabelo>(cortesCabelo);
 
-        Console.WriteLine();
-        Console.WriteLine("Gostaria de fazer a barba? (sim ou não)");
-        string cortarBarba = Console.ReadLine();
-        List<Barba> listaAuxiliarBarba = new List<Barba>(cortesBarba);
-        listaAuxiliarBarba.RemoveAt(0);
-
-        if (cortarBarba.ToLower() == "sim" || cortarBarba.ToLower() == "s")
-        {
-            Console.WriteLine("Escolha o tipo de barba:");
-            foreach (var barba in listaAuxiliarBarba)
+            if (cortarCabelo.ToLower() == "sim" || cortarCabelo.ToLower() == "s")
             {
-                Console.WriteLine($"{listaAuxiliarBarba.IndexOf(barba)}) {barba.Nome} - R${barba.Preco}");
-            }
-            Console.WriteLine($"{listaAuxiliarBarba.Count}) Para voltar para a tela inicial");
-            int rCortesBarba = int.Parse(Console.ReadLine());
-            if (rCortesBarba == listaAuxiliarBarba.Count)
-            {
-                TelaInicial();
-                return;
-            }
-            barbaEscolhida = listaAuxiliarBarba[rCortesBarba];
-        }
-        else
-        {
-            barbaEscolhida = new Barba();
-            barbaEscolhida.Nome = "Nenhuma";
-            barbaEscolhida.Preco = 0;
-        }
-
-        Console.WriteLine();
-        Console.WriteLine("Gostaria de fazer um pedido adicional? (sim ou não)");
-        string pedidoAdicional = Console.ReadLine();
-
-        if (pedidoAdicional.ToLower() == "sim" || pedidoAdicional.ToLower() == "s")
-        {
-           Console.WriteLine("Escolha um pedido adicional:");
-           List<Outros> listaAuxiliarOutros = new List<Outros>();
-            listaAuxiliarOutros = outrosTipos;
-            listaAuxiliarOutros.RemoveAt(0);
-           for (int i = 0; i < 3; i++)
-            {
-                foreach (var outro in listaAuxiliarOutros)
+                while (true)
                 {
-                    Console.WriteLine($"{listaAuxiliarOutros.IndexOf(outro)}) {outro.Nome} - R${outro.Preco}");
-                }
-                Console.WriteLine($"{listaAuxiliarOutros.Count}) Para voltar para a tela inicial");
-                int resposta = int.Parse(Console.ReadLine());
-
-                if (resposta == listaAuxiliarOutros.Count)
-                {
-                    TelaInicial();
-                    return;
-                }
-
-                Console.WriteLine($"{listaAuxiliarOutros[resposta].Nome} Escolhido");
-                Console.WriteLine();
-
-                outroEscolhido.Add(listaAuxiliarOutros[resposta]);
-                listaAuxiliarOutros.RemoveAt(resposta);
-
-                if (listaAuxiliarOutros.Count >= 1)
-                {
-                    Console.WriteLine("Deseja escolher outro?");
-                    string resposta2 = Console.ReadLine();
-                    if (resposta2 != "sim" && resposta2 != "s")
+                    try
                     {
-                        i = 3;
+                        Console.WriteLine("Escolha o tipo de corte de cabelo:");
+                        foreach (var cabelo in listaAuxiliarCabelo)
+                        {
+                            Say($"{listaAuxiliarCabelo.IndexOf(cabelo)}", $"{cabelo.Nome} - R${cabelo.Preco}");
+                        }
+                        Say($"{listaAuxiliarCabelo.Count}", "Para voltar para a tela inicial");
+                        int rCortesCabelo = int.Parse(Console.ReadLine());
+                        if (rCortesCabelo == listaAuxiliarCabelo.Count)
+                        {
+                            TelaInicial();
+                            return;
+                        }
+                        cabeloEscolhido = listaAuxiliarCabelo[rCortesCabelo];
+                        break;
+                    }
+                    catch
+                    {
+                        Console.WriteLine("ERRO: Digite um número válido!", Color.Red);
                     }
                 }
-           }
-        }
-        else
-        {
-            Outros outros = new Outros();
-            outros.Nome = "Nenhum";
-            outros.Preco = 0;
-            outroEscolhido.Add(outros);
+                break;
+            }
+            else if (cortarCabelo.ToLower() == "não" || cortarCabelo.ToLower() == "n")
+            {
+                cabeloEscolhido = new Cabelo();
+                cabeloEscolhido.Nome = "Nenhum";
+                cabeloEscolhido.Preco = 0;
+                break;
+            }
+            else
+            {
+                Console.WriteLine("ERRO: Digite 'Sim' ou 'Não'", Color.Red);
+            }
         }
 
-        Console.WriteLine("Escolha a data e a hora do agendamento no formato: dd/MM/yyyy HH:mm");
-        DateTime dataHora = DateTime.Parse(Console.ReadLine());
+        string cortarBarba;
+        while (true)
+        {
+            Console.WriteLine();
+            Console.WriteLine("Gostaria de fazer a barba? (sim ou não)");
+            cortarBarba = Console.ReadLine();
+            List<Barba> listaAuxiliarBarba = new List<Barba>(cortesBarba);
+
+            if (cortarBarba.ToLower() == "sim" || cortarBarba.ToLower() == "s")
+            {
+                while (true)
+                {
+                    try
+                    {
+                        Console.WriteLine("Escolha o tipo de barba:");
+                        foreach (var barba in listaAuxiliarBarba)
+                        {
+                            Say($"{listaAuxiliarBarba.IndexOf(barba)}", $"{barba.Nome} - R${barba.Preco}");
+                        }
+                        Say($"{listaAuxiliarBarba.Count}", "Para voltar para a tela inicial");
+                        int rCortesBarba = int.Parse(Console.ReadLine());
+                        if (rCortesBarba == listaAuxiliarBarba.Count)
+                        {
+                            TelaInicial();
+                            return;
+                        }
+                        barbaEscolhida = listaAuxiliarBarba[rCortesBarba];
+                        break;
+                    }
+                    catch
+                    {
+                        Console.WriteLine("ERRO: Digite um valor válido!", Color.Red);
+                    }
+                }
+                break;
+            }
+            else if (cortarBarba.ToLower() == "não" || cortarBarba.ToLower() == "n")
+            {
+                barbaEscolhida = new Barba();
+                barbaEscolhida.Nome = "Nenhuma";
+                barbaEscolhida.Preco = 0;
+                break;
+            }
+            else
+            {
+                Console.WriteLine("ERRO: Digite 'Sim' ou 'Não'", Color.Red);
+            }
+        }
+
+        string pedidoAdicional;
+        while(true)
+        {
+            Console.WriteLine();
+            Console.WriteLine("Gostaria de fazer um pedido adicional? (sim ou não)");
+            pedidoAdicional = Console.ReadLine();
+
+            if (pedidoAdicional.ToLower() == "sim" || pedidoAdicional.ToLower() == "s")
+            {
+               Console.WriteLine("Escolha um pedido adicional:");
+               List<Outros> listaAuxiliarOutros = new List<Outros>(outrosTipos);
+                listaAuxiliarOutros.RemoveAt(0);
+               for (int i = 0; i < 3; i++)
+               {
+                    int resposta;
+                    while (true)
+                    {
+                        try
+                        {
+                            foreach (var outro in listaAuxiliarOutros)
+                            {
+                                Say($"{listaAuxiliarOutros.IndexOf(outro)}", $"{outro.Nome} - R${outro.Preco}");
+                            }
+                            Console.WriteLine($"{listaAuxiliarOutros.Count}) Para voltar para a tela inicial");
+                            resposta = int.Parse(Console.ReadLine());
+
+                            if (resposta == listaAuxiliarOutros.Count)
+                            {
+                                TelaInicial();
+                                return;
+                            }
+
+                            Console.WriteLine($"{listaAuxiliarOutros[resposta].Nome} Escolhido");
+                            break;
+                        }
+                        catch
+                        {
+                            Console.WriteLine("ERRO: Digite um valor válido!", Color.Red);
+                        }
+                    }
+                    Console.WriteLine();
+
+                    outroEscolhido.Add(listaAuxiliarOutros[resposta]);
+                    listaAuxiliarOutros.RemoveAt(resposta);
+
+                    if (listaAuxiliarOutros.Count >= 1)
+                    {
+                        while (true)
+                        {
+                            Console.WriteLine("Deseja escolher outro?");
+                            string resposta2 = Console.ReadLine();
+                            if (resposta2.ToLower() == "sim" || resposta2.ToLower() == "s")
+                            {
+                                break;
+                            }
+                            else if (resposta2.ToLower() == "não" || resposta2.ToLower() == "n")
+                            {
+                                i = 3;
+                                break;
+                            }
+                            else
+                            {
+                                Console.WriteLine("ERRO: Digite 'Sim' ou 'Não'", Color.Red);
+                            }
+                        }
+                    }
+               }
+               break;
+            }
+            else if (pedidoAdicional.ToLower() == "não" || pedidoAdicional.ToLower() == "n")
+            {
+                Outros outros = new Outros();
+                outros.Nome = "Nenhum";
+                outros.Preco = 0;
+                outroEscolhido.Add(outros);
+                break;
+            }
+            else
+            {
+                Console.WriteLine("ERRO: Digite 'Sim' ou 'Não'", Color.Red);
+            }
+        }
+
+        DateTime dataHora;
+        while (true)
+        {
+            try
+            {
+                Console.WriteLine();
+                Console.WriteLine("Escolha a data e a hora do agendamento no formato: dd/MM/yyyy HH:mm");
+                dataHora = DateTime.Parse(Console.ReadLine());
+                break;
+            }
+            catch
+            {
+                Console.WriteLine("ERRO: Digite uma data válida", Color.Red);
+            }
+        }
         int id = Agendamento.GerarID();
 
         Agendamento agendamento = new Agendamento
@@ -204,7 +354,7 @@ class Program
             writer.WriteLine($"{agendamento.Id};{agendamento.Cliente.Nome};{agendamento.Cliente.Cpf};{agendamento.Cliente.Telefone};{agendamento.DataHora};{agendamento.Cabelo.Nome};{agendamento.Barba.Nome};{outrosJuntos};{agendamento.Barbeiro.Id};{agendamento.PrecoTotal}");
         }
 
-        Console.WriteLine($"O agendamento foi realizado com sucesso! Preço total: R${agendamento.PrecoTotal}");
+        Console.WriteLine($"O agendamento foi realizado com sucesso! Preço total: R${agendamento.PrecoTotal}", Color.Green);
         Console.WriteLine("Digite qualquer tecla para voltar para a tela incial");
         Console.ReadKey();
         TelaInicial();
@@ -214,6 +364,7 @@ class Program
     {
         Console.Clear();
         List<string> linhas = new List<string>();
+        Directory.CreateDirectory("Pasta de Registros");
         using (StreamWriter writer = new StreamWriter("Pasta de Registros\\registrosBarbearia.txt", true)) { }
         using (StreamReader reader = new StreamReader("Pasta de Registros\\registrosBarbearia.txt"))
         {
@@ -249,6 +400,7 @@ class Program
         Console.WriteLine("Digite o ID do Agendamento:");
         string idAgendamento = Console.ReadLine();
 
+        Directory.CreateDirectory("Pasta de Registros");
         List<string> linhas = new List<string>();
         using (StreamReader reader = new StreamReader("Pasta de Registros\\registrosBarbearia.txt"))
         {
@@ -296,7 +448,7 @@ class Program
         
         if (cliente == null)
         {
-            Console.WriteLine("Cliente não foi localizado.");
+            Console.WriteLine("Cliente não foi localizado.", Color.Red);
             Console.WriteLine("Pressione qualquer tecla para voltar a tela inicial!");
             Console.ReadKey();
             TelaInicial();
@@ -304,14 +456,14 @@ class Program
         }
 
         Console.WriteLine("O que você gostaria de alterar?");
-        Console.WriteLine(@"1) Nome 
-2) CPF
-3) Telefone
-4) Data e Hora
-5) Corte de Cabelo
-6) Barba
-7) Pedido Adicional
-8) Barbeiro");
+        Say("1", "Nome");
+        Say("2", "CPF");
+        Say("3", "Telefone");
+        Say("4", "Data e Hora");
+        Say("5", "Corte de Cabelo");
+        Say("6", "Barba");
+        Say("7", "Pedido Adicional");
+        Say("8", "Barbeiro");
 
         int escolha = int.Parse(Console.ReadLine());
 
@@ -319,8 +471,20 @@ class Program
         switch (escolha)
         {
             case 1:
-                Console.WriteLine("Digite o novo nome:");
-                string novoNome = Console.ReadLine();
+                string novoNome;
+                while (true)
+                {
+                    Console.WriteLine("Digite o novo nome:");
+                    novoNome = Console.ReadLine();
+                    if (novoNome.Length <= 0)
+                    {
+                        Console.WriteLine("ERRO: Digite um nome!", Color.Red);
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
                 string arquivoTemp = Path.GetTempFileName();
                 using (StreamWriter writerTemp = new StreamWriter(arquivoTemp, true))
                     foreach(var linha in linhas)
@@ -341,8 +505,20 @@ class Program
                 cliente.Nome = novoNome;
                 break;
             case 2:
-                Console.WriteLine("Digite o novo CPF");
-                string novoCPF = Console.ReadLine();
+                string novoCPF;
+                while (true)
+                {
+                    Console.WriteLine("Digite o novo CPF");
+                    novoCPF = Console.ReadLine();
+                    if (novoCPF.Length != 11)
+                    {
+                        Console.WriteLine("ERRO: Digite um CPF válido!", Color.Red);
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
                 arquivoTemp = Path.GetTempFileName();
                 using (StreamWriter writerTemp = new StreamWriter(arquivoTemp, true))
                 {
@@ -364,8 +540,20 @@ class Program
                 File.Move(arquivoTemp, "Pasta de Registros\\registrosBarbearia.txt");
                 break;
             case 3:
-                Console.WriteLine("Digite o novo telefone:");
-                string novoTelefone = Console.ReadLine();
+                string novoTelefone;
+                while (true)
+                {
+                    Console.WriteLine("Digite o novo telefone (9 dígitos):");
+                    novoTelefone = Console.ReadLine();
+                    if(novoTelefone.Length != 9)
+                    {
+                        Console.WriteLine("ERRO: Digite um número de telefone válido!", Color.Red);
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
                 arquivoTemp = Path.GetTempFileName();
                 using (StreamWriter writerTemp = new StreamWriter(arquivoTemp, true))
                 {
@@ -388,107 +576,165 @@ class Program
                 cliente.Telefone = novoTelefone;
                 break;
             case 4:
-                Console.WriteLine("Digite a nova data e hora no formato: dd/MM/yyyy HH:mm");
-                string novaData = (Console.ReadLine());
-                arquivoTemp = Path.GetTempFileName();
-                using (StreamWriter writerTemp = new StreamWriter(arquivoTemp, true))
+                while (true)
                 {
-                    foreach (var linha in linhas)
+                    try
                     {
-                        string[] partesLinhas = linha.Split(";");
-                        if (agendamentoEscolhido.Id == int.Parse(partesLinhas[0]))
+                        Console.WriteLine("Digite a nova data e hora no formato: dd/MM/yyyy HH:mm");
+                        string novaData = (Console.ReadLine());
+                        arquivoTemp = Path.GetTempFileName();
+                        using (StreamWriter writerTemp = new StreamWriter(arquivoTemp, true))
                         {
-                            string linhaTemp = linha.Replace(partesLinhas[4], novaData);
-                            writerTemp.WriteLine(linhaTemp);
+                            foreach (var linha in linhas)
+                            {
+                                string[] partesLinhas = linha.Split(";");
+                                if (agendamentoEscolhido.Id == int.Parse(partesLinhas[0]))
+                                {
+                                    string linhaTemp = linha.Replace(partesLinhas[4], novaData);
+                                    writerTemp.WriteLine(linhaTemp);
+                                }
+                                else
+                                {
+                                    writerTemp.WriteLine(linha);
+                                }
+                            }
                         }
-                        else
-                        {
-                            writerTemp.WriteLine(linha);
-                        }
+                        File.Delete("Pasta de Registros\\registrosBarbearia.txt");
+                        File.Move(arquivoTemp, "Pasta de Registros\\registrosBarbearia.txt");
+                        agendamentoEscolhido.DataHora = DateTime.Parse(novaData);
+                        break;
+                    }
+                    catch
+                    {
+                        Console.WriteLine("ERRO: Digite uma data válida!", Color.Red);
                     }
                 }
-                File.Delete("Pasta de Registros\\registrosBarbearia.txt");
-                File.Move(arquivoTemp, "Pasta de Registros\\registrosBarbearia.txt");
-                agendamentoEscolhido.DataHora = DateTime.Parse(novaData);
                 break;
             case 5:
-                Console.WriteLine("Escolha o novo corte de cabelo:");
-                foreach (var cabelo in cortesCabelo)
+                while (true)
                 {
-                    Console.WriteLine($"{cortesCabelo.IndexOf(cabelo)}) {cabelo.Nome} - R${cabelo.Preco}");
-                }
-                int rCortesCabelo = int.Parse(Console.ReadLine());
-                arquivoTemp = Path.GetTempFileName();
-                using (StreamWriter writerTemp = new StreamWriter(arquivoTemp, true))
-                {
-                    foreach (var linha in linhas)
+                    try
                     {
-                        string[] partesLinhas = linha.Split(";");
-                        if (agendamentoEscolhido.Id == int.Parse(partesLinhas[0]))
+                        Console.WriteLine("Escolha o novo corte de cabelo:");
+                        foreach (var cabelo in cortesCabelo)
                         {
-                            string linhaTemp = linha.Replace(partesLinhas[5], (cortesCabelo[rCortesCabelo].Nome));
-                            writerTemp.WriteLine(linhaTemp);
+                            Say($"{cortesCabelo.IndexOf(cabelo)}", $"{cabelo.Nome} - R${cabelo.Preco}");
                         }
-                        else
+                        int rCortesCabelo = int.Parse(Console.ReadLine());
+                        arquivoTemp = Path.GetTempFileName();
+                        using (StreamWriter writerTemp = new StreamWriter(arquivoTemp, true))
                         {
-                            writerTemp.WriteLine(linha);
+                            foreach (var linha in linhas)
+                            {
+                                string[] partesLinhas = linha.Split(";");
+                                if (agendamentoEscolhido.Id == int.Parse(partesLinhas[0]))
+                                {
+                                    string linhaTemp = linha.Replace(partesLinhas[5], (cortesCabelo[rCortesCabelo].Nome));
+                                    writerTemp.WriteLine(linhaTemp);
+                                }
+                                else
+                                {
+                                    writerTemp.WriteLine(linha);
+                                }
+                            }
                         }
+                        File.Delete("Pasta de Registros\\registrosBarbearia.txt");
+                        File.Move(arquivoTemp, "Pasta de Registros\\registrosBarbearia.txt");
+                        agendamentoEscolhido.Cabelo = cortesCabelo[rCortesCabelo];
+                        break;
+                    }
+                    catch
+                    {
+                        Console.WriteLine("ERRO: Digite um número válido", Color.Red);
                     }
                 }
-                File.Delete("Pasta de Registros\\registrosBarbearia.txt");
-                File.Move(arquivoTemp, "Pasta de Registros\\registrosBarbearia.txt");
-                agendamentoEscolhido.Cabelo = cortesCabelo[rCortesCabelo];
                 break;
             case 6:
-                Console.WriteLine("Escolha o novo corte de barba:");
-                foreach (var barba in cortesBarba)
+                while (true)
                 {
-                    Console.WriteLine($"{cortesBarba.IndexOf(barba)}) {barba.Nome} - R${barba.Preco}");
-                }
-                int rCortesBarba = int.Parse(Console.ReadLine());
-                arquivoTemp = Path.GetTempFileName();
-                using (StreamWriter writerTemp = new StreamWriter(arquivoTemp, true))
-                {
-                    foreach (var linha in linhas)
+                    try
                     {
-                        string[] partesLinhas = linha.Split(";");
-                        if (agendamentoEscolhido.Id == int.Parse(partesLinhas[0]))
+                        Console.WriteLine("Escolha o novo corte de barba:");
+                        foreach (var barba in cortesBarba)
                         {
-                            string linhaTemp = linha.Replace(partesLinhas[6], (cortesBarba[rCortesBarba].Nome));
-                            writerTemp.WriteLine(linhaTemp);
+                            Say($"{cortesBarba.IndexOf(barba)}", $"{barba.Nome} - R${barba.Preco}");
                         }
-                        else
+                        int rCortesBarba = int.Parse(Console.ReadLine());
+                        arquivoTemp = Path.GetTempFileName();
+                        using (StreamWriter writerTemp = new StreamWriter(arquivoTemp, true))
                         {
-                            writerTemp.WriteLine(linha);
+                            foreach (var linha in linhas)
+                            {
+                                string[] partesLinhas = linha.Split(";");
+                                if (agendamentoEscolhido.Id == int.Parse(partesLinhas[0]))
+                                {
+                                    string linhaTemp = linha.Replace(partesLinhas[6], (cortesBarba[rCortesBarba].Nome));
+                                    writerTemp.WriteLine(linhaTemp);
+                                }
+                                else
+                                {
+                                    writerTemp.WriteLine(linha);
+                                }
+                            }
                         }
+                        File.Delete("Pasta de Registros\\registrosBarbearia.txt");
+                        File.Move(arquivoTemp, "Pasta de Registros\\registrosBarbearia.txt");
+                        agendamentoEscolhido.Barba = cortesBarba[rCortesBarba];
+                        break;
+                    }
+                    catch
+                    {
+                        Console.WriteLine("ERRO: Digite um valor válido!", Color.Red);
                     }
                 }
-                File.Delete("Pasta de Registros\\registrosBarbearia.txt");
-                File.Move(arquivoTemp, "Pasta de Registros\\registrosBarbearia.txt");
-                agendamentoEscolhido.Barba = cortesBarba[rCortesBarba];
                 break;
             case 7:
                 Console.WriteLine("Escolha o novo pedido adicional:");
                 List<Outros> listaAuxiliar = new List<Outros>(outrosTipos);
                 List<Outros> listaTemp = new List<Outros>();
+                listaAuxiliar.RemoveAt(0);
                 for (int i = 0; i < 3; i++)
                 {
-                    foreach (var outro in listaAuxiliar)
+                    int resposta;
+                    while (true)
                     {
-                        Console.WriteLine($"{listaAuxiliar.IndexOf(outro)}) {outro.Nome} - R${outro.Preco}");
-                    }
-                    int resposta = int.Parse(Console.ReadLine());
+                        try
+                        {
+                            foreach (var outro in listaAuxiliar)
+                            {
+                                Say($"{listaAuxiliar.IndexOf(outro)}", $"{outro.Nome} - R${outro.Preco}");
+                            }
+                            resposta = int.Parse(Console.ReadLine());
 
-                    listaTemp.Add(listaAuxiliar[resposta]);
+                            listaTemp.Add(listaAuxiliar[resposta]);
+                            break;
+                        }
+                        catch
+                        {
+                            Console.WriteLine("ERRO: Digite um valor válido!", Color.Red);
+                        }
+                    }
                     listaAuxiliar.RemoveAt(resposta);
 
                     if (listaAuxiliar.Count >= 1)
                     {
-                        Console.WriteLine("Deseja escolher outro?");
-                        string resposta2 = Console.ReadLine();
-                        if (resposta2 != "sim" && resposta2 != "s")
+                        while (true)
                         {
-                            break;
+                            Console.WriteLine("Deseja escolher outro?");
+                            string resposta2 = Console.ReadLine();
+                            if (resposta2.ToLower() == "sim" || resposta2.ToLower() == "s")
+                            {
+                                break;
+                            }
+                            else if (resposta2.ToLower() == "n" || resposta2.ToLower() == "não")
+                            {
+                                i = 3;
+                                break;
+                            }
+                            else
+                            {
+                                Console.WriteLine("ERRO: Digite 'Sim' ou 'Não'", Color.Red);
+                            }
                         }
                     }
                 }
@@ -524,39 +770,50 @@ class Program
                 File.Move(arquivoTemp, "Pasta de Registros\\registrosBarbearia.txt");
                 break;
             case 8:
-                Console.WriteLine("Escolha o novo barbeiro:");
-                foreach (var barbeiro in barbeiros)
+                while (true)
                 {
-                    Console.WriteLine($"{barbeiro.Id}) {barbeiro.Nome}");
-                }
-                string idBarbeiro = Console.ReadLine();
-                arquivoTemp = Path.GetTempFileName();
-                using (StreamWriter writerTemp = new StreamWriter(arquivoTemp, true))
-                {
-                    foreach (var linha in linhas)
+                    try
                     {
-                        string[] partesLinhas = linha.Split(";");
-                        if (agendamentoEscolhido.Id == int.Parse(partesLinhas[0]))
+                        Console.WriteLine("Escolha o novo barbeiro:");
+                        foreach (var barbeiro in barbeiros)
                         {
-                            string linhaTemp = linha.Replace(partesLinhas[8], idBarbeiro);
-                            writerTemp.WriteLine(linhaTemp);
+                            Say($"{barbeiro.Id}", $"{barbeiro.Nome}");
                         }
-                        else
+                        string idBarbeiro = Console.ReadLine();
+                        arquivoTemp = Path.GetTempFileName();
+                        using (StreamWriter writerTemp = new StreamWriter(arquivoTemp, true))
                         {
-                            writerTemp.WriteLine(linha);
+                            foreach (var linha in linhas)
+                            {
+                                string[] partesLinhas = linha.Split(";");
+                                if (agendamentoEscolhido.Id == int.Parse(partesLinhas[0]))
+                                {
+                                    string linhaTemp = linha.Replace(partesLinhas[8], idBarbeiro);
+                                    writerTemp.WriteLine(linhaTemp);
+                                }
+                                else
+                                {
+                                    writerTemp.WriteLine(linha);
+                                }
+                            }
                         }
+                        File.Delete("Pasta de Registros\\registrosBarbearia.txt");
+                        File.Move(arquivoTemp, "Pasta de Registros\\registrosBarbearia.txt");
+
+                        barbeiroEscolhido.Agenda.Remove(agendamentoEscolhido);
+                        barbeiroEscolhido = barbeiros.Find(b => b.Id == idBarbeiro);
+                        agendamentoEscolhido.Barbeiro = barbeiroEscolhido;
+                        barbeiroEscolhido.Agenda.Add(agendamentoEscolhido);
+                        break;
+                    }
+                    catch
+                    {
+                        Console.WriteLine("ERRO: Digite um valor válido!", Color.Red);
                     }
                 }
-                File.Delete("Pasta de Registros\\registrosBarbearia.txt");
-                File.Move(arquivoTemp, "Pasta de Registros\\registrosBarbearia.txt");
-
-                barbeiroEscolhido.Agenda.Remove(agendamentoEscolhido);
-                barbeiroEscolhido = barbeiros.Find(b => b.Id == idBarbeiro);
-                agendamentoEscolhido.Barbeiro = barbeiroEscolhido;
-                barbeiroEscolhido.Agenda.Add(agendamentoEscolhido);
                 break;
             default:
-                Console.WriteLine("Escolha inválida.");
+                Console.WriteLine("Escolha inválida!", Color.Red);
                 Console.WriteLine("Pressione qualquer tecla para voltar a tela inicial!");
                 Console.ReadKey();
                 TelaInicial();
@@ -591,7 +848,7 @@ class Program
         File.Delete("Pasta de Registros\\registrosBarbearia.txt");
         File.Move(arquivoTempPreco, "Pasta de Registros\\registrosBarbearia.txt");
 
-        Console.WriteLine("Alteração feita com sucesso!");
+        Console.WriteLine("Alteração feita com sucesso!", Color.Green);
         Console.WriteLine("Pressione qualquer tecla para voltar a tela inicial!");
         Console.ReadKey();
         TelaInicial();
@@ -600,8 +857,20 @@ class Program
     public static void ExcluirAgendamento()
     {
         Console.Clear();
-        Console.WriteLine("Qual o ID do agendamento que deseja excluir?");
-        int idAgendamento = int.Parse(Console.ReadLine());
+        int idAgendamento;
+        while (true)
+        {
+            try
+            {
+                Console.WriteLine("Qual o ID do agendamento que deseja excluir?");
+                idAgendamento = int.Parse(Console.ReadLine());
+                break;
+            }
+            catch
+            {
+                Console.WriteLine("ERRO: Digite um ID válido", Color.Red);
+            }
+        }
         List<string> linhas = new List<string>();
         using (StreamReader reader = new StreamReader("Pasta de Registros\\registrosBarbearia.txt"))
         {
@@ -632,33 +901,58 @@ class Program
         File.Move(arquivoTemp, "Pasta de Registros\\registrosBarbearia.txt");
         if (idEncontrado)
         {
-            Console.WriteLine("Exclusão feita com sucesso!");
+            Console.WriteLine("Exclusão feita com sucesso!", Color.Green);
             Console.WriteLine("Pressione qualquer tecla para voltar a tela inicial!");
             Console.ReadKey();
             TelaInicial();
         }
         else
         {
-            Console.WriteLine("Registro não Encontrado");
+            Console.WriteLine("Registro não Encontrado", Color.Red);
             Console.WriteLine("Pressione qualquer tecla para voltar a tela inicial!");
             Console.ReadKey();
             TelaInicial();
         }
     }
 
+
     public static void TelaInicial()
     {
         Console.Clear();
+        Console.Title = "Barbearia Artorias";
+        Console.WriteLine(@"
+     _         _             _           
+    / \   _ __| |_ ___  _ __(_) __ _ ___ 
+   / _ \ | '__| __/ _ \| '__| |/ _` / __|
+  / ___ \| |  | || (_) | |  | | (_| \__ \
+ /_/   \_\_|   \__\___/|_|  |_|\__,_|___/
+                                         
+", Color.BlueViolet);
         Console.WriteLine("Bem-vindo à Barbearia do Artorias!");
         Console.WriteLine();
         Console.WriteLine("Sistema de Agendamento");
-        Console.WriteLine(@"Você gostaria de: 
-1) Agendar um corte 
-2) Ver a agenda
-3) Alterar um agendamento
-4) Excluir um Agendamento");
+        Console.WriteLine();
+        Console.WriteLine("Você gostaria de:");
+        Console.WriteLine();
+        Say("1", "Agendar um Corte");
+        Say("2", "Ver a agenda");
+        Say("3", "Alterar um agendamento");
+        Say("4", "Excluir um Agendamento");
 
-        int escolha = int.Parse(Console.ReadLine());
+        int escolha;
+        while (true)
+        {
+            try
+            {
+                escolha = int.Parse(Console.ReadLine());
+                break;
+            }
+            catch
+            {
+                Console.WriteLine("ERRO: Digite um valor válido!", Color.Red);
+            }
+        }
+
 
         switch (escolha)
         {
@@ -675,7 +969,8 @@ class Program
                 ExcluirAgendamento();
                 break;
             default:
-                Console.WriteLine("Escolha inválida.");
+                Console.WriteLine("ERRO: Digite um valor válido!", Color.Red);
+                Thread.Sleep(1500);
                 TelaInicial();
                 break;
         }
