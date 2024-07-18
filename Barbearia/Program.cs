@@ -455,17 +455,29 @@ class Program
             return;
         }
 
-        Console.WriteLine("O que você gostaria de alterar?");
-        Say("1", "Nome");
-        Say("2", "CPF");
-        Say("3", "Telefone");
-        Say("4", "Data e Hora");
-        Say("5", "Corte de Cabelo");
-        Say("6", "Barba");
-        Say("7", "Pedido Adicional");
-        Say("8", "Barbeiro");
+        int escolha;
+        while (true)
+        {
+            try
+            {
+                Console.WriteLine("O que você gostaria de alterar?");
+                Say("1", "Nome");
+                Say("2", "CPF");
+                Say("3", "Telefone");
+                Say("4", "Data e Hora");
+                Say("5", "Corte de Cabelo");
+                Say("6", "Barba");
+                Say("7", "Pedido Adicional");
+                Say("8", "Barbeiro");
 
-        int escolha = int.Parse(Console.ReadLine());
+                escolha = int.Parse(Console.ReadLine());
+                break;
+            }
+            catch
+            {
+                Console.WriteLine("Digite um valor válido!", Color.Red);
+            }
+        }
 
   
         switch (escolha)
