@@ -73,3 +73,6 @@ C:\Users\luigi.santos\Desktop\BarbeariaLuigi\Projeto-Barbearia\Barbearia\obj\Deb
 C:\Users\luigi.santos\Desktop\BarbeariaLuigi\Projeto-Barbearia\Barbearia\obj\Debug\net8.0\Barbearia.pdb
 C:\Users\luigi.santos\Desktop\BarbeariaLuigi\Projeto-Barbearia\Barbearia\obj\Debug\net8.0\Barbearia.genruntimeconfig.cache
 C:\Users\luigi.santos\Desktop\BarbeariaLuigi\Projeto-Barbearia\Barbearia\obj\Debug\net8.0\ref\Barbearia.dll
+C:\Users\luigi\Desktop\Barbearia Luigi\Projeto-Barbearia\Barbearia\bin\Debug\net8.0\Colorful.Console.dll
+C:\Users\luigi\Desktop\Barbearia Luigi\Projeto-Barbearia\Barbearia\obj\Debug\net8.0\Barbearia.csproj.AssemblyReference.cache
+C:\Users\luigi\Desktop\Barbearia Luigi\Projeto-Barbearia\Barbearia\obj\Debug\net8.0\Barbearia.csproj.Up2Date
