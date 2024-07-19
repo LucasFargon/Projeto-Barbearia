@@ -16,6 +16,7 @@ class Program
 
     static List<Cabelo> cortesCabelo = new List<Cabelo>
         {
+            new Cabelo { Nome = "Nenhum", Preco = 0},
             new Cabelo { Nome = "Americano", Preco = 30},
             new Cabelo { Nome = "Mid Fade", Preco = 30 },
             new Cabelo { Nome = "Low Fade", Preco = 30 }
@@ -23,6 +24,7 @@ class Program
 
     static List<Barba> cortesBarba = new List<Barba>
         {
+            new Barba { Nome = "Nenhum", Preco = 0},
             new Barba { Nome = "Lenhador", Preco = 40},
             new Barba { Nome = "Cavanhaque", Preco = 25 },
             new Barba { Nome = "Alinhamento", Preco = 20 }
@@ -137,10 +139,11 @@ class Program
             Console.WriteLine();
             Console.WriteLine("Gostaria de fazer um corte de cabelo? (sim ou não)");
             cortarCabelo = Console.ReadLine();
-            List<Cabelo> listaAuxiliarCabelo = new List<Cabelo>(cortesCabelo);
 
             if (cortarCabelo.ToLower() == "sim" || cortarCabelo.ToLower() == "s")
             {
+                List<Cabelo> listaAuxiliarCabelo = new List<Cabelo>(cortesCabelo);
+                listaAuxiliarCabelo.RemoveAt(0);
                 while (true)
                 {
                     try
@@ -169,9 +172,7 @@ class Program
             }
             else if (cortarCabelo.ToLower() == "não" || cortarCabelo.ToLower() == "n")
             {
-                cabeloEscolhido = new Cabelo();
-                cabeloEscolhido.Nome = "Nenhum";
-                cabeloEscolhido.Preco = 0;
+                cabeloEscolhido = cortesCabelo[0];
                 break;
             }
             else
@@ -186,10 +187,11 @@ class Program
             Console.WriteLine();
             Console.WriteLine("Gostaria de fazer a barba? (sim ou não)");
             cortarBarba = Console.ReadLine();
-            List<Barba> listaAuxiliarBarba = new List<Barba>(cortesBarba);
 
             if (cortarBarba.ToLower() == "sim" || cortarBarba.ToLower() == "s")
             {
+                List<Barba> listaAuxiliarBarba = new List<Barba>(cortesBarba);
+                listaAuxiliarBarba.RemoveAt(0);
                 while (true)
                 {
                     try
@@ -218,9 +220,7 @@ class Program
             }
             else if (cortarBarba.ToLower() == "não" || cortarBarba.ToLower() == "n")
             {
-                barbaEscolhida = new Barba();
-                barbaEscolhida.Nome = "Nenhuma";
-                barbaEscolhida.Preco = 0;
+                barbaEscolhida = cortesBarba[0];
                 break;
             }
             else
@@ -252,7 +252,7 @@ class Program
                             {
                                 Say($"{listaAuxiliarOutros.IndexOf(outro)}", $"{outro.Nome} - R${outro.Preco}");
                             }
-                            Console.WriteLine($"{listaAuxiliarOutros.Count}) Para voltar para a tela inicial");
+                            Say($"{listaAuxiliarOutros.Count}", "Para voltar para a tela inicial");
                             resposta = int.Parse(Console.ReadLine());
 
                             if (resposta == listaAuxiliarOutros.Count)
@@ -704,7 +704,6 @@ class Program
                 Console.WriteLine("Escolha o novo pedido adicional:");
                 List<Outros> listaAuxiliar = new List<Outros>(outrosTipos);
                 List<Outros> listaTemp = new List<Outros>();
-                listaAuxiliar.RemoveAt(0);
                 for (int i = 0; i < 3; i++)
                 {
                     int resposta;
@@ -728,26 +727,40 @@ class Program
                     }
                     listaAuxiliar.RemoveAt(resposta);
 
-                    if (listaAuxiliar.Count >= 1)
+                    if (listaTemp[0] != outrosTipos[0])
                     {
-                        while (true)
+                        if (listaAuxiliar.Count != 0)
                         {
-                            Console.WriteLine("Deseja escolher outro?");
-                            string resposta2 = Console.ReadLine();
-                            if (resposta2.ToLower() == "sim" || resposta2.ToLower() == "s")
+                            if (listaAuxiliar[0] == outrosTipos[0])
                             {
-                                break;
-                            }
-                            else if (resposta2.ToLower() == "n" || resposta2.ToLower() == "não")
-                            {
-                                i = 3;
-                                break;
-                            }
-                            else
-                            {
-                                Console.WriteLine("ERRO: Digite 'Sim' ou 'Não'", Color.Red);
+                                listaAuxiliar.RemoveAt(0);
                             }
                         }
+                        if (listaAuxiliar.Count >= 1)
+                        {
+                            while (true)
+                            {
+                                Console.WriteLine("Deseja escolher outro?");
+                                string resposta2 = Console.ReadLine();
+                                if (resposta2.ToLower() == "sim" || resposta2.ToLower() == "s")
+                                {
+                                    break;
+                                }
+                                else if (resposta2.ToLower() == "n" || resposta2.ToLower() == "não")
+                                {
+                                    i = 3;
+                                    break;
+                                }
+                                else
+                                {
+                                    Console.WriteLine("ERRO: Digite 'Sim' ou 'Não'", Color.Red);
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        i = 3;
                     }
                 }
                 string outrosJuntos = "";
