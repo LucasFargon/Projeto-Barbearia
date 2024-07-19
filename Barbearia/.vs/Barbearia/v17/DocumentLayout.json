@@ -7,6 +7,22 @@
       "RelativeMoniker": "D:0:0:{D6045FF6-EF7B-4C13-8369-7C83230E8959}|Barbearia.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{D6045FF6-EF7B-4C13-8369-7C83230E8959}|Barbearia.csproj|c:\\users\\luigi\\desktop\\barbearia luigi\\projeto-barbearia\\barbearia\\barbeiro.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D6045FF6-EF7B-4C13-8369-7C83230E8959}|Barbearia.csproj|solutionrelative:barbeiro.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D6045FF6-EF7B-4C13-8369-7C83230E8959}|Barbearia.csproj|c:\\users\\luigi\\desktop\\barbearia luigi\\projeto-barbearia\\barbearia\\cabelo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D6045FF6-EF7B-4C13-8369-7C83230E8959}|Barbearia.csproj|solutionrelative:cabelo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D6045FF6-EF7B-4C13-8369-7C83230E8959}|Barbearia.csproj|c:\\users\\luigi\\desktop\\barbearia luigi\\projeto-barbearia\\barbearia\\outros.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D6045FF6-EF7B-4C13-8369-7C83230E8959}|Barbearia.csproj|solutionrelative:outros.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D6045FF6-EF7B-4C13-8369-7C83230E8959}|Barbearia.csproj|c:\\users\\luigi\\desktop\\barbearia luigi\\projeto-barbearia\\barbearia\\cliente.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D6045FF6-EF7B-4C13-8369-7C83230E8959}|Barbearia.csproj|solutionrelative:cliente.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{D6045FF6-EF7B-4C13-8369-7C83230E8959}|Barbearia.csproj|c:\\users\\luigi\\desktop\\barbearia luigi\\projeto-barbearia\\barbearia\\barba.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{D6045FF6-EF7B-4C13-8369-7C83230E8959}|Barbearia.csproj|solutionrelative:barba.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -17,22 +33,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{D6045FF6-EF7B-4C13-8369-7C83230E8959}|Barbearia.csproj|c:\\users\\luigi\\desktop\\barbearia luigi\\projeto-barbearia\\barbearia\\agendamentoteste.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{D6045FF6-EF7B-4C13-8369-7C83230E8959}|Barbearia.csproj|solutionrelative:agendamentoteste.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D6045FF6-EF7B-4C13-8369-7C83230E8959}|Barbearia.csproj|c:\\users\\luigi\\desktop\\barbearia luigi\\projeto-barbearia\\barbearia\\outros.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D6045FF6-EF7B-4C13-8369-7C83230E8959}|Barbearia.csproj|solutionrelative:outros.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D6045FF6-EF7B-4C13-8369-7C83230E8959}|Barbearia.csproj|c:\\users\\luigi\\desktop\\barbearia luigi\\projeto-barbearia\\barbearia\\cabelo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D6045FF6-EF7B-4C13-8369-7C83230E8959}|Barbearia.csproj|solutionrelative:cabelo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D6045FF6-EF7B-4C13-8369-7C83230E8959}|Barbearia.csproj|c:\\users\\luigi\\desktop\\barbearia luigi\\projeto-barbearia\\barbearia\\barbeiro.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D6045FF6-EF7B-4C13-8369-7C83230E8959}|Barbearia.csproj|solutionrelative:barbeiro.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D6045FF6-EF7B-4C13-8369-7C83230E8959}|Barbearia.csproj|c:\\users\\luigi\\desktop\\barbearia luigi\\projeto-barbearia\\barbearia\\cliente.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D6045FF6-EF7B-4C13-8369-7C83230E8959}|Barbearia.csproj|solutionrelative:cliente.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -60,7 +60,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 7,
               "Title": "AgendamentoTeste.cs",
               "DocumentMoniker": "C:\\Users\\luigi\\Desktop\\Barbearia Luigi\\Projeto-Barbearia\\Barbearia\\AgendamentoTeste.cs",
               "RelativeDocumentMoniker": "AgendamentoTeste.cs",
@@ -68,8 +68,7 @@
               "RelativeToolTip": "AgendamentoTeste.cs",
               "ViewState": "AQIAAAMAAAAAAAAAAAAAAAoAAAAFAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-18T21:50:49.063Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-18T21:50:49.063Z"
             },
             {
               "$type": "Document",
@@ -79,14 +78,14 @@
               "RelativeDocumentMoniker": "Program.cs",
               "ToolTip": "C:\\Users\\luigi\\Desktop\\Barbearia Luigi\\Projeto-Barbearia\\Barbearia\\Program.cs",
               "RelativeToolTip": "Program.cs",
-              "ViewState": "AQIAACoCAAAAAAAAAAAIwDECAAAmAAAA",
+              "ViewState": "AQIAABcBAAAAAAAAAAAowC4BAAAzAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-07-11T16:43:29.686Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 6,
               "Title": "Agendamento.cs",
               "DocumentMoniker": "C:\\Users\\luigi\\Desktop\\Barbearia Luigi\\Projeto-Barbearia\\Barbearia\\Agendamento.cs",
               "RelativeDocumentMoniker": "Agendamento.cs",
@@ -94,12 +93,11 @@
               "RelativeToolTip": "Agendamento.cs",
               "ViewState": "AQIAACAAAAAAAAAAAAAuwCgAAAARAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-11T20:13:58.452Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-11T20:13:58.452Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 5,
               "Title": "Barba.cs",
               "DocumentMoniker": "C:\\Users\\luigi\\Desktop\\Barbearia Luigi\\Projeto-Barbearia\\Barbearia\\Barba.cs",
               "RelativeDocumentMoniker": "Barba.cs",
@@ -107,12 +105,11 @@
               "RelativeToolTip": "Barba.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAApAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-11T16:51:28.599Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-11T16:51:28.599Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 4,
               "Title": "Cliente.cs",
               "DocumentMoniker": "C:\\Users\\luigi\\Desktop\\Barbearia Luigi\\Projeto-Barbearia\\Barbearia\\Cliente.cs",
               "RelativeDocumentMoniker": "Cliente.cs",
@@ -120,12 +117,11 @@
               "RelativeToolTip": "Cliente.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAABAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-11T16:49:12.461Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-11T16:49:12.461Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 1,
               "Title": "Barbeiro.cs",
               "DocumentMoniker": "C:\\Users\\luigi\\Desktop\\Barbearia Luigi\\Projeto-Barbearia\\Barbearia\\Barbeiro.cs",
               "RelativeDocumentMoniker": "Barbeiro.cs",
@@ -133,12 +129,11 @@
               "RelativeToolTip": "Barbeiro.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAZAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-11T16:50:43.226Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-11T16:50:43.226Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 2,
               "Title": "Cabelo.cs",
               "DocumentMoniker": "C:\\Users\\luigi\\Desktop\\Barbearia Luigi\\Projeto-Barbearia\\Barbearia\\Cabelo.cs",
               "RelativeDocumentMoniker": "Cabelo.cs",
@@ -146,12 +141,11 @@
               "RelativeToolTip": "Cabelo.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAABAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-11T16:51:11.002Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-11T16:51:11.002Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 3,
               "Title": "Outros.cs",
               "DocumentMoniker": "C:\\Users\\luigi\\Desktop\\Barbearia Luigi\\Projeto-Barbearia\\Barbearia\\Outros.cs",
               "RelativeDocumentMoniker": "Outros.cs",
@@ -159,8 +153,7 @@
               "RelativeToolTip": "Outros.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAABAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-11T16:51:41.709Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-11T16:51:41.709Z"
             }
           ]
         }
