@@ -68,8 +68,7 @@
               "RelativeToolTip": "AgendamentoTeste.cs",
               "ViewState": "AQIAAAMAAAAAAAAAAAAAAAoAAAAFAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-18T21:50:49.063Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-18T21:50:49.063Z"
             },
             {
               "$type": "Document",
@@ -79,7 +78,7 @@
               "RelativeDocumentMoniker": "Program.cs",
               "ToolTip": "C:\\Users\\luigi\\Desktop\\Barbearia Luigi\\Projeto-Barbearia\\Barbearia\\Program.cs",
               "RelativeToolTip": "Program.cs",
-              "ViewState": "AQIAAPcCAAAAAAAAAAAUwOoDAAAdAAAA",
+              "ViewState": "AQIAABcBAAAAAAAAAAAowC4BAAAzAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-07-11T16:43:29.686Z",
               "EditorCaption": ""
@@ -94,8 +93,7 @@
               "RelativeToolTip": "Agendamento.cs",
               "ViewState": "AQIAACAAAAAAAAAAAAAuwCgAAAARAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-11T20:13:58.452Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-11T20:13:58.452Z"
             },
             {
               "$type": "Document",
@@ -107,8 +105,7 @@
               "RelativeToolTip": "Barba.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAApAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-11T16:51:28.599Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-11T16:51:28.599Z"
             },
             {
               "$type": "Document",
@@ -120,8 +117,7 @@
               "RelativeToolTip": "Cliente.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAABAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-11T16:49:12.461Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-11T16:49:12.461Z"
             },
             {
               "$type": "Document",
@@ -133,8 +129,7 @@
               "RelativeToolTip": "Barbeiro.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAZAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-11T16:50:43.226Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-11T16:50:43.226Z"
             },
             {
               "$type": "Document",
@@ -146,8 +141,7 @@
               "RelativeToolTip": "Cabelo.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAABAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-11T16:51:11.002Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-11T16:51:11.002Z"
             },
             {
               "$type": "Document",
@@ -159,8 +153,7 @@
               "RelativeToolTip": "Outros.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAABAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-11T16:51:41.709Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-11T16:51:41.709Z"
             }
           ]
         }

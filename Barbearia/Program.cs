@@ -300,10 +300,7 @@ class Program
             }
             else if (pedidoAdicional.ToLower() == "não" || pedidoAdicional.ToLower() == "n")
             {
-                Outros outros = new Outros();
-                outros.Nome = "Nenhum";
-                outros.Preco = 0;
-                outroEscolhido.Add(outros);
+                outroEscolhido.Add(outrosTipos[0]);
                 break;
             }
             else
